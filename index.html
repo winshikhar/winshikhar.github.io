@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dr. Shikhar Bhardwaj — AI/ML/GenAI Engineer & Researcher</title>
   <meta name="description" content="PhD researcher and engineer specializing in on-prem GenAI, RAG, edge ML, IoT/SDN, and secure AI systems." />
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5V9SPS7G');</script>
+  <!-- End Google Tag Manager -->
+
   <!-- Print stylesheet for PDF export -->
   <style media="print">
     * { -webkit-print-color-adjust: exact !important; color-adjust: exact !important; box-shadow: none !important; text-shadow: none !important; }
@@ -21,6 +30,7 @@
     [role="tabpanel"] { display: block !important; }
     section { page-break-after: always; }
   </style>
+
   <!-- Main styles -->
   <style id="themeStyles">
     :root {
@@ -35,7 +45,14 @@
       --maxwidth: 1100px;
       --mono: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --bp-md: 920px;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      :root { transition: none; }
+      .knfl .dice, .tab, main.card { transition: none !important; }
+    }
+
     [data-theme="light"] {
       --bg: #ffffff;
       --panel: #f8fafc;
@@ -44,36 +61,49 @@
       --glass: rgba(0,0,0,0.03);
       color-scheme: light;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       height: 100%;
       font-family: var(--mono);
       background: linear-gradient(180deg, var(--bg) 0%, var(--panel) 60%);
       color: var(--text-color, #e6eef6);
+      transition: background 0.3s ease, color 0.3s ease;
     }
     [data-theme="light"] body {
       background: linear-gradient(180deg, #ffffff 0%, #f8fafc 60%);
       color: #1e293b;
     }
+
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    .container { max-width: var(--maxwidth); margin: 20px auto; padding: 20px; }
+
+    .container {
+      max-width: var(--maxwidth);
+      margin: 20px auto;
+      padding: 20px;
+      position: relative;
+    }
+
     header {
       display: flex;
       gap: 20px;
       align-items: flex-start;
       flex-wrap: wrap;
-      position: relative;
       margin-bottom: 12px;
     }
+
     .brand {
       font-weight: 700;
       font-size: 1.6rem;
-      color: var(--accent);
-      letter-spacing: 0.2px;
     }
-    .tagline { color: var(--muted); font-size: 0.95rem; margin-top: 4px; }
-    /* Inline contact below tagline */
+
+    .tagline {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+
     .inline-contact {
       font-size: 0.9rem;
       color: var(--muted);
@@ -83,9 +113,6 @@
       gap: 6px;
       align-items: center;
     }
-    .inline-contact span, .inline-contact a {
-      white-space: nowrap;
-    }
     .inline-contact a {
       color: var(--muted);
       text-decoration: none;
@@ -94,28 +121,38 @@
       color: var(--accent);
     }
     [data-theme="light"] .inline-contact a { color: #64748b; }
-    [data-theme="light"] .inline-contact a:hover { color: var(--accent); }
 
     .theme-toggle {
       position: absolute;
-      top: 0;
-      right: 0;
+      top: 20px;
+      right: 20px;
       background: var(--glass);
       border: 1px solid rgba(255,255,255,0.04);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       color: var(--muted);
       font-size: 14px;
+      padding: 6px 12px;
+      gap: 6px;
+      z-index: 10;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .theme-toggle:hover,
+    .theme-toggle:focus {
+      background: rgba(255,255,255,0.06);
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
     [data-theme="light"] .theme-toggle {
       color: #64748b;
       background: rgba(0,0,0,0.03);
       border-color: rgba(0,0,0,0.1);
+    }
+    [data-theme="light"] .theme-toggle:hover {
+      background: rgba(0,0,0,0.06);
     }
 
     .tabs {
@@ -134,6 +171,7 @@
       cursor: pointer;
       white-space: nowrap;
       font-size: 0.92rem;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
     }
     [data-theme="light"] .tab {
       background: rgba(0,0,0,0.02);
@@ -158,6 +196,7 @@
       border-radius: var(--radius);
       padding: 20px;
       box-shadow: 0 8px 40px rgba(2,6,23,0.6);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
     }
     [data-theme="light"] main.card {
       background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
@@ -212,11 +251,13 @@
       color: #475569;
     }
 
+    /* KNFL */
     .knfl .playground {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
       align-items: center;
+      margin-bottom: 12px;
     }
     .knfl .dice {
       width: 48px;
@@ -229,6 +270,10 @@
       justify-content: center;
       font-weight: 700;
       border: 2px solid rgba(0,0,0,0.06);
+      transition: transform 0.2s ease;
+    }
+    .knfl .dice:hover {
+      transform: scale(1.05);
     }
     .knfl .roll {
       background: linear-gradient(90deg, var(--accent), var(--accent-2));
@@ -238,12 +283,36 @@
       border: none;
       cursor: pointer;
       font-weight: 700;
+      transition: opacity 0.2s ease;
     }
-    .knfl .score {
+    .knfl .roll:hover {
+      opacity: 0.9;
+    }
+    .knfl-score {
       margin-top: 12px;
       color: #e2f0ff;
+      display: block;
     }
-    [data-theme="light"] .knfl .score { color: #1e293b; }
+    [data-theme="light"] .knfl-score { color: #1e293b; }
+
+    /* Publications */
+    .pub-authors {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .pub-venue {
+      font-size: 0.9rem;
+      margin-top: 4px;
+      color: var(--muted);
+    }
+    [data-theme="light"] .pub-venue,
+    [data-theme="light"] .pub-authors {
+      color: #64748b;
+    }
+    .pub-link {
+      display: inline-block;
+      margin-top: 6px;
+    }
 
     .accordion {
       margin-top: 12px;
@@ -294,15 +363,22 @@
       height: 60vh;
       border-radius: 8px;
       border: 1px solid rgba(255,255,255,0.02);
+      display: block;
     }
     [data-theme="light"] #gameCanvas {
       border-color: rgba(0,0,0,0.1);
     }
 
-    /* Focus styles */
+    .canvas-fallback {
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 8px;
+    }
+
     .tab:focus,
     .acc-btn:focus,
-    .knfl .roll:focus {
+    .knfl .roll:focus,
+    .theme-toggle:focus {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
       border-radius: 8px;
@@ -310,29 +386,38 @@
   </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V9SPS7G"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
   <div class="container" id="app">
     <header>
       <div>
         <div class="brand">Dr. Shikhar Bhardwaj</div>
-        <div class="tagline">PhD · AI/ML/GenAI Engineer · IoT & SDN Researcher</div>
+        <div class="tagline">PhD · AI/ML/GenAI Engineer & Researcher</div>
         <div class="inline-contact">
           <span>Noida, India (IST)</span> •
-          <a href="mailto:winshikhar@gmail.com">winshikhar@gmail.com</a> •
-          <a href="https://linkedin.com/in/b-shikhar/" target="_blank" rel="noopener noreferrer">linkedin.com/in/b-shikhar</a> •
-          <a href="https://github.com/winshikhar" target="_blank" rel="noopener noreferrer">github.com/winshikhar</a>
+          <a href="mailto:winshikhar@gmail.com" data-gtm-event="outbound_click" data-gtm-label="email">winshikhar@gmail.com</a> •
+          <a href="https://linkedin.com/in/b-shikhar/" target="_blank" rel="noopener noreferrer" data-gtm-event="outbound_click" data-gtm-label="linkedin">linkedin.com/in/b-shikhar</a> •
+          <a href="https://github.com/winshikhar" target="_blank" rel="noopener noreferrer" data-gtm-event="outbound_click" data-gtm-label="github">github.com/winshikhar</a> •
+          <!-- “Hire Me” link for conversion tracking -->
+          <a href="mailto:winshikhar@gmail.com?subject=Consulting Inquiry" data-gtm-event="click_hire_me">Hire Me</a>
         </div>
       </div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">🌓</button>
     </header>
 
+    <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode" data-gtm-event="theme_toggle">
+      <span id="themeIcon">🌓</span>
+      <span class="theme-toggle-label" id="themeLabel">Dark</span>
+    </button>
+
     <nav class="tabs" role="tablist" aria-label="Primary">
-      <button class="tab" role="tab" aria-selected="true" aria-controls="panel-home" id="tab-home" data-target="panel-home" type="button">Home</button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-ai" id="tab-ai" data-target="panel-ai" type="button">AI Engineer</button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-ml" id="tab-ml" data-target="panel-ml" type="button">ML Engineer</button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-genai" id="tab-genai" data-target="panel-genai" type="button">GenAI Engineer</button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-pubs" id="tab-pubs" data-target="panel-pubs" type="button">Publications</button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-knfl" id="tab-knfl" data-target="panel-knfl" type="button">KNFL (Game)</button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-play" id="tab-play" data-target="panel-play" type="button">Playground</button>
+      <button class="tab" role="tab" aria-selected="true" aria-controls="panel-home" id="tab-home" data-target="panel-home" type="button" data-gtm-event="tab_view" data-gtm-label="home">Home</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-aiml" id="tab-aiml" data-target="panel-aiml" type="button" data-gtm-event="tab_view" data-gtm-label="aiml">AI/ML/GenAI</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-pubs" id="tab-pubs" data-target="panel-pubs" type="button" data-gtm-event="tab_view" data-gtm-label="publications">Publications</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-knfl" id="tab-knfl" data-target="panel-knfl" type="button" data-gtm-event="tab_view" data-gtm-label="knfl">KNFL (Game)</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-play" id="tab-play" data-target="panel-play" type="button" data-gtm-event="tab_view" data-gtm-label="playground">Playground</button>
     </nav>
 
     <main class="card" id="mainCard">
@@ -379,7 +464,7 @@
           </div>
 
           <aside style="padding:12px;background:var(--glass);border-radius:10px">
-            <h3 class="muted">Highlights</h3>
+            <h3>Highlights</h3>
             <p class="muted">
               • PhD (Computer Science), PEC Chandigarh<br/>
               • GATE-2015 Qualified<br/>
@@ -392,59 +477,37 @@
         </div>
       </section>
 
-      <!-- AI ENGINEER -->
-      <section id="panel-ai" role="tabpanel" aria-labelledby="tab-ai" hidden tabindex="0">
-        <h2>AI Engineer — Production Systems</h2>
-        <p class="muted">Focus: AI system engineering, deployment, MLOps, and cost-optimized inference.</p>
+      <!-- AI/ML/GENAI -->
+      <section id="panel-aiml" role="tabpanel" aria-labelledby="tab-aiml" hidden tabindex="0">
+        <h2>AI / ML / GenAI Engineering</h2>
+        <p class="muted">Integrated expertise across classical ML, production AI systems, and secure on-prem GenAI.</p>
 
-        <h3>Experience</h3>
-        <h4>Deputy Manager, DS Group (Jan 2024 – Present)</h4>
+        <h3>AI & GenAI Systems</h3>
         <ul>
           <li>Built hybrid rule + LLM inference engine (vLLM/Flask) — <strong>50% cost reduction</strong> vs third-party APIs.</li>
+          <li>Deployed RAG chatbots with ChromaDB/pgvector + containerized guardrails against prompt injection and jailbreaking.</li>
           <li>Integrated Whisper STT/TTS and Neo4j for voice-driven, relationship-aware AI assistants.</li>
           <li>Deployed n8n agentic workflows for localized inference, cutting latency by ~40%.</li>
-          <li>Implemented containerized prompt guardrails to prevent injection, jailbreaking, and data leakage.</li>
+          <li>On-prem RAG with OpenAI fallback and Dockerized security layers.</li>
+          <li>Real-time voice AI: Whisper STT/TTS + Flask API + Gradio PoC.</li>
         </ul>
 
-        <h4>Project Assistant, CSIR-CSIO (2018–2019)</h4>
-        <ul>
-          <li>Deployed CI/CD pipelines for ML models on Raspberry Pi and Jetson.</li>
-          <li>Configured Proxmox with PCIe passthrough for hardware-accelerated ML workloads.</li>
-          <li>Used Docker + WebSockets for real-time system monitoring on constrained devices.</li>
-        </ul>
-      </section>
-
-      <!-- ML ENGINEER -->
-      <section id="panel-ml" role="tabpanel" aria-labelledby="tab-ml" hidden tabindex="0">
-        <h2>ML Engineer — Edge & Embedded</h2>
-        <p class="muted">Focus: model development, optimization, and deployment on resource-constrained hardware.</p>
-
-        <h3>Highlights</h3>
+        <h3>ML & Edge Engineering</h3>
         <ul>
           <li>Reduced model memory/latency by 50% via quantization/pruning for edge devices.</li>
           <li>Built seismic signal classifier (human vs. vehicle) using transfer learning on Jetson.</li>
           <li>Developed cardamom segregator with industrial Modbus integration — <strong>70–90% less human intervention</strong>.</li>
           <li>Stacking ensemble (Naive Bayes + SVM + RF) for academic web page classification.</li>
-        </ul>
-      </section>
-
-      <!-- GENAI ENGINEER -->
-      <section id="panel-genai" role="tabpanel" aria-labelledby="tab-genai" hidden tabindex="0">
-        <h2>GenAI Engineer — Secure & On-Prem</h2>
-        <p class="muted">Focus: RAG, voice interfaces, guardrails, and cost-efficient LLM inference.</p>
-
-        <h3>Selected Work</h3>
-        <ul>
-          <li>On-prem RAG chatbot with ChromaDB/pgvector, OpenAI fallback, and Dockerized guardrails.</li>
-          <li>Real-time voice AI: Whisper STT/TTS + Flask API + Gradio PoC.</li>
-          <li>Bandwidth-optimized surveillance: ONVIF + event-based transfer → <strong>66.67% savings</strong>.</li>
+          <li>Optimized surveillance bandwidth by <strong>66.67%</strong> via event-based ONVIF data transfer.</li>
+          <li>Deployed CI/CD pipelines for ML models on Raspberry Pi and Jetson.</li>
+          <li>Configured Proxmox with PCIe passthrough for hardware-accelerated ML workloads.</li>
         </ul>
       </section>
 
       <!-- PUBLICATIONS -->
       <section id="panel-pubs" role="tabpanel" aria-labelledby="tab-pubs" hidden tabindex="0">
         <h2>Publications</h2>
-        <p class="muted">Peer-reviewed research in IoT, SDN, privacy, and secure communications.</p>
+        <p class="muted">Peer-reviewed research in IoT, SDN, privacy, blockchain, and secure communications.</p>
         <div class="accordion" id="pubs-accordion"></div>
       </section>
 
@@ -453,12 +516,10 @@
         <h2>KNFL — Dice Game</h2>
         <p class="muted">Roll five dice. Special hands: KNFL (all same), little/big street (4/5 consecutive), fullhouse, or stacks.</p>
         <div class="knfl">
-          <div class="playground" id="knfl-dice" aria-live="polite"></div>
-          <div style="margin-top:12px">
-            <button class="knfl roll" id="knfl-roll" type="button">Roll</button>
-            <div class="score" id="knfl-score" aria-atomic="true"></div>
-          </div>
-          <div style="margin-top:12px;color:var(--muted);font-size:0.9rem">Tip: KNFL yields 500 pts — rare but accumulates.</div>
+          <div class="playground" id="knfl-dice" aria-live="polite" aria-label="Dice results"></div>
+          <button class="knfl roll" id="knfl-roll" type="button" data-gtm-event="knfl_roll">Roll Dice</button>
+          <div class="knfl-score" id="knfl-score" aria-atomic="true"></div>
+          <p class="muted" style="margin-top:8px;font-size:0.9rem">Tip: KNFL (all same) yields 500 pts — rare but accumulates.</p>
         </div>
       </section>
 
@@ -466,8 +527,8 @@
       <section id="panel-play" role="tabpanel" aria-labelledby="tab-play" hidden tabindex="0">
         <h2>Interactive Playground</h2>
         <p class="muted">Move the mouse to create animated shapes. Click and hold to alter dynamics.</p>
-        <canvas id="gameCanvas" aria-label="interactive canvas playground"></canvas>
-        <div id="instructionPrompt" style="display:none;margin-top:10px;color:var(--muted)">Move your mouse to spawn shapes. Click & hold to change behaviour.</div>
+        <canvas id="gameCanvas" aria-label="Interactive animated shape canvas"></canvas>
+        <p class="canvas-fallback" aria-hidden="true">Interactive canvas requires JavaScript.</p>
       </section>
     </main>
   </div>
@@ -477,21 +538,45 @@
     const $ = sel => document.querySelector(sel);
     const $$ = sel => Array.from(document.querySelectorAll(sel));
 
+    // Initialize dataLayer if not present
+    window.dataLayer = window.dataLayer || [];
+
+    // Push initial page_view (optional; GTM usually handles this)
+    // dataLayer.push({'event': 'page_view'});
+
     // Theme toggle
     const themeToggle = $('#themeToggle');
     const root = document.documentElement;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     let theme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
     root.setAttribute('data-theme', theme);
-    themeToggle.textContent = theme === 'light' ? '🌙' : '🌓';
+
+    const icon = $('#themeIcon');
+    const label = $('#themeLabel');
+    function updateThemeUI() {
+      if (theme === 'light') {
+        icon.textContent = '☀️';
+        label.textContent = 'Light';
+      } else {
+        icon.textContent = '🌙';
+        label.textContent = 'Dark';
+      }
+    }
+    updateThemeUI();
+
     themeToggle.addEventListener('click', () => {
       theme = theme === 'light' ? 'dark' : 'light';
       root.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
-      themeToggle.textContent = theme === 'light' ? '🌙' : '🌓';
+      updateThemeUI();
+      // Push event to dataLayer for GTM
+      window.dataLayer.push({
+        'event': 'theme_toggle',
+        'theme_mode': theme
+      });
     });
 
-    // Tab navigation
+    // Tab navigation with tracking
     const tabs = $$('[role="tab"]');
     const panels = $$('[role="tabpanel"]');
     function activateTab(tabBtn){
@@ -502,23 +587,90 @@
       const id = tabBtn.dataset.target || tabBtn.getAttribute('aria-controls');
       const panel = document.getElementById(id);
       if(panel) { panel.hidden = false; panel.focus(); }
+
+      // Push tab_view event
+      const label = tabBtn.dataset.gtmLabel || id;
+      window.dataLayer.push({
+        'event': 'tab_view',
+        'tab_name': label
+      });
     }
+
     $('.tabs').addEventListener('click', e => {
       const btn = e.target.closest('[role="tab"]');
       if(btn) activateTab(btn);
     });
-    window.activateTabById = id => activateTab(document.getElementById(id));
+
+    // Outbound link tracking
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a[data-gtm-event]');
+      if (link && link.dataset.gtmEvent) {
+        const event = link.dataset.gtmEvent;
+        const label = link.dataset.gtmLabel || link.href;
+        window.dataLayer.push({
+          'event': event,
+          'link_url': link.href,
+          'link_label': label
+        });
+      }
+    });
+
+    // KNFL Roll tracking
+    const rollBtn = $('#knfl-roll');
+    if (rollBtn) {
+      rollBtn.addEventListener('click', () => {
+        window.dataLayer.push({'event': 'knfl_roll'});
+      });
+    }
+
+    // Activate default tab
     activateTab($('.tab[aria-selected="true"]') || tabs[0]);
 
-    // Publications
+    // Publications (corrected metadata)
     const pubs = [
-      {title:"There is Mathematics for That! : A Formal Verification of Privacy and Simulative Analysis of Consumer-Centric Content Delivery in IoT",authors:"Shikhar Bhardwaj, Sandeep Harit, Shilpa",year:2025,venue:"Transactions on Emerging Telecommunications Technologies (SCIE)",url:"https://onlinelibrary.wiley.com/doi/10.1002/ett.70059"},
-      {title:"Towards a software-defined networking model for consumer-centric content delivery network for IoT",authors:"Shikhar Bhardwaj, Sandeep Harit, Anil Yadav",year:2023,venue:"Transactions on Emerging Telecommunications Technologies (SCIE)",url:"https://onlinelibrary.wiley.com/doi/abs/10.1002/ett.4903"},
-      {title:"Message Queuing Telemetry Transport - Secure Connection: A Power-efficient Secure Communication",authors:"Shikhar Bhardwaj, Sandeep Harit, Shilpa, Darpan Anand",year:2023,venue:"International Journal of Sensor Networks (IJSN SCIE)",url:"https://doi.org/10.1504/IJSNET.2023.131246"},
-      {title:"SDN-Enabled Secure IoT Architecture Development: A Review",authors:"Bhardwaj S., Harit S.",year:2022,venue:"Inventive Communication and Computational Technologies (ICICCT). Lecture Notes in Networks and Systems, vol 311. Springer",url:"https://doi.org/10.1007/978-981-16-5529-6_47"},
-      {title:"Traceability of Unwitting Disclosure Using Explainable Correlation in Procurement and Supply Chain",authors:"Gunjal, H.V.; Ingale, V.; Bhardwaj, S.; Belokar, R.M.",year:2023,venue:"Applications of Emerging Technologies and AI/ML Algorithms. ICDAPS 2022. Asset Analytics. Springer",url:"https://doi.org/10.1007/978-981-99-1019-9_35"},
-      {title:"Stacking Ensemble-based Automatic Web Page Classification",authors:"D. Deeksha, R. Bhatia, S. Bhardwaj, M. Kumar, K. Bhatia and S. S. Gill",year:2021,venue:"Fourth International Conference on Computational Intelligence and Communication Technologies (CCICT), IEEE",url:"https://doi.org/10.1109/CCICT53244.2021.00042"}
-    ].map(p => ({...p, url: p.url.trim()}));
+      {
+        title: "There is Mathematics for That! : A Formal Verification of Privacy and Simulative Analysis of Consumer-Centric Content Delivery in IoT",
+        authors: "Shikhar Bhardwaj, Sandeep Harit, Shilpa",
+        year: 2025,
+        venue: "Transactions on Emerging Telecommunications Technologies (SCIE)",
+        url: "https://onlinelibrary.wiley.com/doi/10.1002/ett.70059"
+      },
+      {
+        title: "Towards a software-defined networking model for consumer-centric content delivery network for IoT",
+        authors: "Shikhar Bhardwaj, Sandeep Harit, Anil Yadav",
+        year: 2023,
+        venue: "Transactions on Emerging Telecommunications Technologies (SCIE)",
+        url: "https://onlinelibrary.wiley.com/doi/abs/10.1002/ett.4903"
+      },
+      {
+        title: "Message Queuing Telemetry Transport - Secure Connection: A Power-efficient Secure Communication",
+        authors: "Shikhar Bhardwaj, Sandeep Harit, Shilpa, Darpan Anand",
+        year: 2023,
+        venue: "International Journal of Sensor Networks (IJSN SCIE)",
+        url: "https://doi.org/10.1504/IJSNET.2023.131246"
+      },
+      {
+        title: "SDN-Enabled Secure IoT Architecture Development: A Review",
+        authors: "Bhardwaj S., Harit S.",
+        year: 2022,
+        venue: "Inventive Communication and Computational Technologies (ICICCT). Lecture Notes in Networks and Systems, vol 311. Springer",
+        url: "https://doi.org/10.1007/978-981-16-5529-6_47"
+      },
+      {
+        title: "Traceability of Unwitting Disclosure Using Explainable Correlation in Procurement and Supply Chain",
+        authors: "Gunjal, H.V.; Ingale, V.; Bhardwaj, S.; Belokar, R.M.",
+        year: 2023,
+        venue: "Applications of Emerging Technologies and AI/ML Algorithms. ICDAPS 2022. Asset Analytics. Springer",
+        url: "https://doi.org/10.1007/978-981-99-1019-9_35"
+      },
+      {
+        title: "Stacking Ensemble-based Automatic Web Page Classification",
+        authors: "D. Deeksha, R. Bhatia, S. Bhardwaj, M. Kumar, K. Bhatia and S. S. Gill",
+        year: 2021,
+        venue: "Fourth International Conference on Computational Intelligence and Communication Technologies (CCICT), IEEE",
+        url: "https://doi.org/10.1109/CCICT53244.2021.00042"
+      }
+    ];
 
     function buildPubs(){
       const el = $('#pubs-accordion');
@@ -527,16 +679,33 @@
         const item = document.createElement('div');
         item.className = 'acc-item';
         const h = document.createElement('div'); h.className = 'acc-h';
-        const t = document.createElement('div'); t.className = 'acc-title'; t.textContent = `${p.authors} — ${p.title} (${p.year})`;
+        const t = document.createElement('div'); t.className = 'acc-title';
+        t.textContent = `${p.title} (${p.year})`;
         const b = document.createElement('button'); b.className = 'acc-btn'; b.textContent = '+'; b.setAttribute('aria-expanded','false'); b.setAttribute('aria-controls',`p${i}`);
         const panel = document.createElement('div'); panel.className = 'acc-panel'; panel.id = `p${i}`;
-        panel.innerHTML = `<div><strong>Venue:</strong> ${p.venue}</div><div style="margin-top:6px"><a href="${p.url}" target="_blank" rel="noopener noreferrer">View publication</a></div>`;
+        
+        const authors = document.createElement('div');
+        authors.className = 'pub-authors';
+        authors.textContent = p.authors;
+        
+        const venue = document.createElement('div');
+        venue.className = 'pub-venue';
+        venue.textContent = p.venue;
+        
+        const link = document.createElement('a');
+        link.className = 'pub-link';
+        link.href = p.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'View publication';
+        
+        panel.append(authors, venue, link);
         b.onclick = () => {
-          const exp = b.getAttribute('aria-expanded') === 'true';
-          b.setAttribute('aria-expanded',!exp);
-          panel.classList.toggle('show',!exp);
-          panel.setAttribute('aria-hidden',exp);
-          b.textContent = exp ? '+' : '–';
+          const isExpanded = b.getAttribute('aria-expanded') === 'true';
+          b.setAttribute('aria-expanded', !isExpanded);
+          panel.classList.toggle('show', !isExpanded);
+          panel.setAttribute('aria-hidden', isExpanded);
+          b.textContent = isExpanded ? '+' : '–';
         };
         h.append(t,b);
         item.append(h,panel);
@@ -544,15 +713,24 @@
       });
     }
     $('#tab-pubs').addEventListener('click', buildPubs);
-    $('#tab-pubs').addEventListener('keydown', e => { if(e.key==='Enter') buildPubs(); });
 
-    // KNFL Game
+    // KNFL Game logic (no changes needed)
     (function(){
       const roll = $('#knfl-roll'), dice = $('#knfl-dice'), score = $('#knfl-score');
       if(!roll) return;
       const D = 5, S = {KNFL:500, BIG:40, LIL:30, FH:25};
       let plays=0, wins=0, pts=0;
-      function render(arr){ dice.innerHTML = ''; arr.forEach(n => { const d=document.createElement('div'); d.className='dice'; d.textContent=n; dice.appendChild(d); }); }
+      function render(arr){ 
+        dice.innerHTML = ''; 
+        arr.forEach(n => { 
+          const d = document.createElement('div'); 
+          d.className = 'dice';
+          d.textContent = n;
+          d.setAttribute('role', 'img');
+          d.setAttribute('aria-label', `Die showing ${n}`);
+          dice.appendChild(d); 
+        }); 
+      }
       function eval(arr){
         const s=[...arr].sort((a,b)=>a-b), u=[...new Set(s)];
         const knfl = s.every(x=>x===s[0]);
@@ -575,15 +753,15 @@
         const a = Array.from({length:D}, () => Math.floor(Math.random()*6)+1);
         render(a);
         const r = eval(a);
-        score.innerHTML = `Current: ${r.txt} (${r.pt} pts) — Total: ${r.pts} pts | Plays: ${r.plays} | KNFL %: ${r.pct}`;
+        score.textContent = `Current: ${r.txt} (${r.pt} pts) — Total: ${r.pts} pts | Plays: ${r.plays} | KNFL %: ${r.pct}`;
       };
     })();
 
-    // Playground
+    // Playground (no changes)
     let pgInit = false;
     function initPG(){
       if(pgInit) return; pgInit=true;
-      const c = $('#gameCanvas'), p = $('#instructionPrompt');
+      const c = $('#gameCanvas');
       if(!c) return;
       const fit = () => {
         const dpr = window.devicePixelRatio || 1, vh = window.innerHeight*0.6;
@@ -614,11 +792,9 @@
         }
         requestAnimationFrame(draw);
       };
-      if(p){ p.style.display='block'; p.style.opacity='1'; }
       draw();
     }
     $('#tab-play').addEventListener('click', initPG);
-    $('#tab-play').addEventListener('keydown', e => { if(e.key==='Enter') initPG(); });
     if(!$('#panel-play').hidden) initPG();
   })();
   </script>
