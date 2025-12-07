@@ -5,59 +5,301 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dr. Shikhar Bhardwaj — Portfolio & CV</title>
   <meta name="description" content="Dr. Shikhar Bhardwaj — AI, ML, GenAI CVs, KNFL game, and interactive playground." />
+  <!-- Print stylesheet -->
+  <style media="print">
+    * { 
+      -webkit-print-color-adjust: exact !important;
+      color-adjust: exact !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+    body {
+      background: white !important;
+      color: black !important;
+    }
+    .card, .container, header, footer, .tab, .chip, .dice, .roll, .acc-h, .acc-panel, canvas {
+      background: white !important;
+      border: 1px solid #ccc !important;
+      color: black !important;
+    }
+    .muted, .contact, .tagline, .skills, ul, .chip, .acc-panel {
+      color: #555 !important;
+    }
+    a { color: #007bff !important; text-decoration: underline !important; }
+    canvas, .knfl .playground, .knfl .roll, .knfl .score, #instructionPrompt {
+      display: none !important;
+    }
+    .tabs { display: none; }
+    [role="tabpanel"] { display: block !important; }
+    #panel-home, #panel-ai, #panel-ml, #panel-genai { display: block !important; page-break-after: always; }
+    .contact a { word-break: break-all; }
+  </style>
   <!-- Tailwind-like minimal utility CSS (self-contained) -->
-  <style>
-    :root{
-      --bg:#0f1724; /* deep slate */
-      --panel:#0b1220;
-      --muted:#94a3b8;
-      --card:#071025;
-      --accent:#7c3aed; /* purple */
-      --accent-2:#06b6d4; /* teal */
+  <style id="themeStyles">
+    :root {
+      --bg: #0f1724; /* deep slate */
+      --panel: #0b1220;
+      --muted: #94a3b8;
+      --card: #071025;
+      --accent: #7c3aed; /* purple */
+      --accent-2: #06b6d4; /* teal */
       --glass: rgba(255,255,255,0.03);
-      --radius:12px;
-      --maxwidth:1100px;
+      --radius: 12px;
+      --maxwidth: 1100px;
       --mono: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --bp-md: 920px;
+    }
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --panel: #f8fafc;
+      --muted: #64748b;
+      --card: #f1f5f9;
+      --glass: rgba(0,0,0,0.03);
+      --accent: #7c3aed;
+      --accent-2: #06b6d4;
+      color-scheme: light;
     }
     /* Reset-ish */
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:var(--mono);background:linear-gradient(180deg,#071123 0%, #071225 60%);color:#e6eef6}
-    a{color:var(--accent)}
-    .container{max-width:var(--maxwidth);margin:20px auto;padding:20px}
-    header{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
-    .brand{font-weight:700;font-size:1.6rem;color:var(--accent);letter-spacing:0.2px}
-    .tagline{color:var(--muted);font-size:0.95rem}
-    .contact{margin-left:auto;text-align:right;color:var(--muted);font-size:0.9rem}
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: var(--mono);
+      background: linear-gradient(180deg, var(--bg) 0%, var(--panel) 60%);
+      color: var(--text-color, #e6eef6);
+    }
+    [data-theme="light"] body {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 60%);
+      color: #1e293b;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: var(--maxwidth); margin: 20px auto; padding: 20px; }
+    header {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .brand {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: var(--accent);
+      letter-spacing: 0.2px;
+    }
+    .tagline { color: var(--muted); font-size: 0.95rem; }
+    .contact {
+      margin-left: auto;
+      text-align: right;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    /* Theme toggle */
+    .theme-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,0.04);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    [data-theme="light"] .theme-toggle {
+      color: #64748b;
+      background: rgba(0,0,0,0.03);
+      border-color: rgba(0,0,0,0.1);
+    }
     /* Tabs */
-    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
-    .tab{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;color:var(--muted);cursor:pointer}
-    .tab[aria-selected="true"]{background:linear-gradient(180deg, rgba(124,58,237,0.12), rgba(6,182,212,0.06));color:#fff;box-shadow:0 6px 28px rgba(2,6,23,0.6);border-color:rgba(124,58,237,0.35)}
-    main.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));border-radius:var(--radius);padding:20px;margin-top:18px;box-shadow:0 8px 40px rgba(2,6,23,0.6)}
-    h1,h2,h3{margin:0 0 8px 0}
-    .muted{color:var(--muted)}
-    .grid-2{display:grid;grid-template-columns:1fr 320px;gap:18px}
-    @media (max-width:920px){.grid-2{grid-template-columns:1fr}}
-    ul{margin:8px 0 12px 18px;color:#dbeafe}
-    .skills{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
-    .chip{background:rgba(255,255,255,0.02);padding:6px 8px;border-radius:999px;border:1px solid rgba(255,255,255,0.02);font-size:0.85rem}
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    .tab {
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 8px 12px;
+      border-radius: 10px;
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    [data-theme="light"] .tab {
+      background: rgba(0,0,0,0.02);
+      border-color: rgba(0,0,0,0.1);
+      color: #64748b;
+    }
+    .tab[aria-selected="true"] {
+      background: linear-gradient(180deg, rgba(124,58,237,0.12), rgba(6,182,212,0.06));
+      color: #fff;
+      box-shadow: 0 6px 28px rgba(2,6,23,0.6);
+      border-color: rgba(124,58,237,0.35);
+    }
+    [data-theme="light"] .tab[aria-selected="true"] {
+      color: #1e293b;
+      background: linear-gradient(180deg, rgba(124,58,237,0.08), rgba(6,182,212,0.04));
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-color: rgba(124,58,237,0.4);
+    }
+    main.card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-top: 18px;
+      box-shadow: 0 8px 40px rgba(2,6,23,0.6);
+    }
+    [data-theme="light"] main.card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      color: #1e293b;
+    }
+    h1, h2, h3 {
+      margin: 0 0 8px 0;
+      color: var(--text-color, #e6eef6);
+    }
+    [data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3 {
+      color: #0f172a;
+    }
+    .muted { color: var(--muted); }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 18px;
+    }
+    @media (max-width: var(--bp-md)) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    ul {
+      margin: 8px 0 12px 18px;
+      color: #dbeafe;
+    }
+    [data-theme="light"] ul { color: #475569; }
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0;
+    }
+    .chip {
+      background: rgba(255,255,255,0.02);
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.02);
+      font-size: 0.85rem;
+    }
+    [data-theme="light"] .chip {
+      background: rgba(0,0,0,0.03);
+      border-color: rgba(0,0,0,0.05);
+      color: #475569;
+    }
     /* KNFL styles scoped */
-    .knfl .playground{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-    .knfl .dice{width:48px;height:48px;border-radius:8px;background:#fff;color:#111;display:inline-flex;align-items:center;justify-content:center;font-weight:700;border:2px solid rgba(0,0,0,0.06)}
-    .knfl .roll{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
-    .knfl .score{margin-top:12px;color:#e2f0ff}
+    .knfl .playground {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .knfl .dice {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      background: #fff;
+      color: #111;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      border: 2px solid rgba(0,0,0,0.06);
+    }
+    .knfl .roll {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: white;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .knfl .score {
+      margin-top: 12px;
+      color: #e2f0ff;
+    }
+    [data-theme="light"] .knfl .score { color: #1e293b; }
     /* Accordion */
-    .accordion{margin-top:12px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
-    .acc-item{border-bottom:1px solid rgba(255,255,255,0.02)}
-    .acc-h{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005))}
-    .acc-title{font-weight:600}
-    .acc-btn{background:none;border:none;color:var(--muted);font-weight:700;cursor:pointer}
-    .acc-panel{padding:12px 14px;background:transparent;color:#cfe8ff;display:none}
-    .acc-panel.show{display:block}
+    .accordion {
+      margin-top: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    [data-theme="light"] .accordion {
+      border-color: rgba(0,0,0,0.1);
+    }
+    .acc-item { border-bottom: 1px solid rgba(255,255,255,0.02); }
+    [data-theme="light"] .acc-item { border-bottom-color: rgba(0,0,0,0.05); }
+    .acc-h {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+    }
+    [data-theme="light"] .acc-h {
+      background: linear-gradient(180deg, rgba(0,0,0,0.01), rgba(0,0,0,0.005));
+    }
+    .acc-title { font-weight: 600; }
+    .acc-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-weight: 700;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .acc-panel {
+      padding: 12px 14px;
+      background: transparent;
+      color: #cfe8ff;
+      display: none;
+    }
+    [data-theme="light"] .acc-panel { color: #475569; }
+    .acc-panel.show { display: block; }
     /* Canvas */
-    #gameCanvas{width:100%;height:60vh;border-radius:8px;border:1px solid rgba(255,255,255,0.02)}
-    footer{margin-top:14px;color:var(--muted);font-size:0.9rem}
-    /* focus */
-    .tab:focus,.acc-btn:focus,.knfl .roll:focus{outline:3px solid rgba(124,58,237,0.18);outline-offset:2px;border-radius:8px}
+    #gameCanvas {
+      width: 100%;
+      height: 60vh;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.02);
+    }
+    [data-theme="light"] #gameCanvas {
+      border-color: rgba(0,0,0,0.1);
+    }
+    footer {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    /* Focus styles */
+    .tab:focus,
+    .acc-btn:focus,
+    .knfl .roll:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -70,8 +312,9 @@
       <div class="contact">
         Noida, India<br/>
         <a href="mailto:winshikhar@gmail.com">winshikhar@gmail.com</a><br/>
-        <a href="https://linkedin.com/in/b-shikhar/" target="_blank" rel="noopener">linkedin.com/in/b-shikhar</a>
+        <a href="https://linkedin.com/in/b-shikhar/" target="_blank" rel="noopener noreferrer">linkedin.com/in/b-shikhar</a>
       </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">🌓</button>
     </header>
 
     <!-- Tabs -->
@@ -85,9 +328,9 @@
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-download" id="tab-download" data-target="panel-download" type="button">Download</button>
     </nav>
 
-    <main class="card" id="mainCard" tabindex="-1">
+    <main class="card" id="mainCard">
       <!-- HOME PANEL -->
-      <section id="panel-home" role="tabpanel" aria-labelledby="tab-home">
+      <section id="panel-home" role="tabpanel" aria-labelledby="tab-home" tabindex="0">
         <div class="grid-2">
           <div>
             <h2>Professional summary</h2>
@@ -108,7 +351,7 @@
             </div>
           </div>
 
-          <aside style="padding:12px;background:rgba(255,255,255,0.01);border-radius:10px">
+          <aside style="padding:12px;background:var(--glass);border-radius:10px">
             <h3 class="muted">Quick actions</h3>
             <p class="muted">Use the tabs to switch CV variants or open the KNFL game and playground. Use Download tab to export documents.</p>
             <div style="margin-top:12px">
@@ -119,7 +362,7 @@
       </section>
 
       <!-- AI PANEL -->
-      <section id="panel-ai" role="tabpanel" aria-labelledby="tab-ai" hidden>
+      <section id="panel-ai" role="tabpanel" aria-labelledby="tab-ai" hidden tabindex="0">
         <h2>AI Engineer — ATS-optimised</h2>
         <p class="muted">Focus: production ML systems, inference engineering, MLOps, and edge integration.</p>
 
@@ -132,13 +375,11 @@
         </ul>
 
         <h3>Selected publications</h3>
-        <div class="accordion" id="pubs-accordion">
-          <!-- Publications inserted by JS -->
-        </div>
+        <div class="accordion" id="pubs-accordion-ai"></div>
       </section>
 
       <!-- ML PANEL -->
-      <section id="panel-ml" role="tabpanel" aria-labelledby="tab-ml" hidden>
+      <section id="panel-ml" role="tabpanel" aria-labelledby="tab-ml" hidden tabindex="0">
         <h2>ML Engineer — ATS-optimised</h2>
         <p class="muted">Focus: model development, evaluation, deployment, MLOps and edge ML.</p>
 
@@ -150,13 +391,11 @@
         </ul>
 
         <h3>Selected publications</h3>
-        <div class="accordion" id="pubs-accordion-ml">
-          <!-- same list -->
-        </div>
+        <div class="accordion" id="pubs-accordion-ml"></div>
       </section>
 
       <!-- GENAI PANEL -->
-      <section id="panel-genai" role="tabpanel" aria-labelledby="tab-genai" hidden>
+      <section id="panel-genai" role="tabpanel" aria-labelledby="tab-genai" hidden tabindex="0">
         <h2>GenAI Engineer — ATS-optimised</h2>
         <p class="muted">Focus: LLM infra, RAG systems, on-prem inference, prompt safety and agentic workflows.</p>
 
@@ -168,13 +407,11 @@
         </ul>
 
         <h3>Selected publications</h3>
-        <div class="accordion" id="pubs-accordion-genai">
-          <!-- same list -->
-        </div>
+        <div class="accordion" id="pubs-accordion-genai"></div>
       </section>
 
       <!-- KNFL GAME PANEL -->
-      <section id="panel-knfl" role="tabpanel" aria-labelledby="tab-knfl" hidden>
+      <section id="panel-knfl" role="tabpanel" aria-labelledby="tab-knfl" hidden tabindex="0">
         <h2>KNFL — Dice Game</h2>
         <p class="muted">Roll five dice. Special hands: KNFL (all same), little/big street (4/5 consecutive), fullhouse, or stacks.</p>
 
@@ -189,7 +426,7 @@
       </section>
 
       <!-- PLAYGROUND PANEL -->
-      <section id="panel-play" role="tabpanel" aria-labelledby="tab-play" hidden>
+      <section id="panel-play" role="tabpanel" aria-labelledby="tab-play" hidden tabindex="0">
         <h2>Interactive Playground</h2>
         <p class="muted">Move the mouse to create animated shapes. Click and hold to alter dynamics.</p>
         <canvas id="gameCanvas" aria-label="interactive canvas playground"></canvas>
@@ -197,48 +434,63 @@
       </section>
 
       <!-- DOWNLOAD PANEL -->
-      <section id="panel-download" role="tabpanel" aria-labelledby="tab-download" hidden>
+      <section id="panel-download" role="tabpanel" aria-labelledby="tab-download" hidden tabindex="0">
         <h2>Download & Publish</h2>
-        <p class="muted">To publish: push this `index.html` to a repo named <code>yourusername.github.io</code>. I can also create downloadable PDF/Word versions—tell me which roles to prioritise.</p>
+        <p class="muted">To publish: push this <code>index.html</code> to a repo named <code>yourusername.github.io</code>. I can also create downloadable PDF/Word versions—tell me which roles to prioritise.</p>
+        <p class="muted">For best PDF results: use <strong>Print → Save as PDF</strong> in your browser (dark/light mode respected).</p>
       </section>
     </main>
 
     <footer>
-      <div class="muted">Content derived from your CV. Full publications list included. :contentReference[oaicite:2]{index=2}</div>
+      <div class="muted">Content derived from your CV. Full publications list included.</div>
     </footer>
   </div>
 
-  <!-- Script: tabs, accordion, knfl, lazy playground init -->
   <script>
   (function(){
     /* UTILS */
     const $ = sel => document.querySelector(sel);
     const $$ = sel => Array.from(document.querySelectorAll(sel));
 
-    /* Tabs: robust, defensive */
+    /* THEME TOGGLE */
+    const themeToggle = $('#themeToggle');
+    const root = document.documentElement;
+
+    // Detect system preference
+    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let currentTheme = localStorage.getItem('theme') || (systemPrefersDark ? 'dark' : 'light');
+    if (currentTheme === 'dark') {
+      root.setAttribute('data-theme', 'dark');
+    } else {
+      root.setAttribute('data-theme', 'light');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', currentTheme);
+      localStorage.setItem('theme', currentTheme);
+      themeToggle.textContent = currentTheme === 'light' ? '🌙' : '🌓';
+    });
+    themeToggle.textContent = currentTheme === 'light' ? '🌙' : '🌓';
+
+    /* TABS */
     const tabs = $$('[role="tab"]');
     const panels = $$('[role="tabpanel"]');
 
     function activateTabButton(tabBtn){
       if(!tabBtn) return;
-      // deselect all
       tabs.forEach(t => t.setAttribute('aria-selected','false'));
       panels.forEach(p => p.hidden = true);
-      // select
       tabBtn.setAttribute('aria-selected','true');
       const targetId = tabBtn.getAttribute('data-target') || tabBtn.getAttribute('aria-controls');
       const panel = targetId ? document.getElementById(targetId) : null;
       if(panel){
         panel.hidden = false;
-        // move keyboard focus to panel for screenreaders
         panel.focus();
-      } else {
-        console.warn('Tab target not found:', targetId, tabBtn);
       }
     }
 
-    // Event delegation (handles click and keyboard)
-    const tablist = document.querySelector('.tabs');
+    const tablist = $('.tabs');
     if(tablist){
       tablist.addEventListener('click', (ev) => {
         const btn = ev.target.closest('[role="tab"]');
@@ -257,18 +509,15 @@
       });
     }
 
-    // Allow programmatic activation (used by quick buttons)
     window.activateTabById = function(tabId){
       const b = document.getElementById(tabId);
       if(b) activateTabButton(b);
     };
 
-    // Start with Home active (defensive)
-    const initial = document.querySelector('[role="tab"][aria-selected="true"]') || tabs[0];
+    const initial = $('.tab[aria-selected="true"]') || tabs[0];
     activateTabButton(initial);
 
-    /* ACCORDION: publications (accessible) */
-    // Publications (full list copied from uploaded CV). Each item should include short meta.
+    /* PUBLICATIONS */
     const publications = [
       {
         title: "There is Mathematics for That! : A Formal Verification of Privacy and Simulative Analysis of Consumer-Centric Content Delivery in IoT",
@@ -312,12 +561,13 @@
         venue: "Fourth International Conference on Computational Intelligence and Communication Technologies (CCICT), IEEE",
         url: "https://doi.org/10.1109/CCICT53244.2021.00042"
       }
-    ];
+    ].map(pub => ({ ...pub, url: pub.url.trim() })); // TRIM URLs
+
+    const pubsRendered = new Set();
 
     function buildPublicationsAccordion(containerId){
       const wrapper = document.getElementById(containerId);
-      if(!wrapper) return;
-      wrapper.innerHTML = ''; // clear
+      if(!wrapper || wrapper.children.length > 0) return;
 
       publications.forEach((p, idx) => {
         const item = document.createElement('div');
@@ -330,24 +580,37 @@
         const btn = document.createElement('button');
         btn.className = 'acc-btn';
         btn.setAttribute('aria-expanded','false');
-        btn.setAttribute('aria-controls', `acc-panel-${idx}`);
+        btn.setAttribute('aria-controls', `acc-panel-${containerId}-${idx}`);
         btn.type = 'button';
         btn.textContent = '+';
-        // panel
+
         const panel = document.createElement('div');
         panel.className = 'acc-panel';
-        panel.id = `acc-panel-${idx}`;
+        panel.id = `acc-panel-${containerId}-${idx}`;
         panel.setAttribute('role','region');
         panel.setAttribute('aria-hidden','true');
-        panel.innerHTML = `<div><strong>Venue:</strong> ${p.venue}</div><div style="margin-top:6px"><a href="${p.url}" target="_blank" rel="noopener">View publication</a></div>`;
 
-        // toggle
+        const venueDiv = document.createElement('div');
+        venueDiv.innerHTML = `<strong>Venue:</strong> ${p.venue}`;
+        const link = document.createElement('a');
+        link.href = p.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'View publication';
+        const linkDiv = document.createElement('div');
+        linkDiv.style.marginTop = '6px';
+        linkDiv.appendChild(link);
+
+        panel.appendChild(venueDiv);
+        panel.appendChild(linkDiv);
+
         btn.addEventListener('click', () => {
           const expanded = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', String(!expanded));
-          panel.classList.toggle('show', !expanded);
-          panel.setAttribute('aria-hidden', String(expanded));
-          btn.textContent = expanded ? '+' : '–';
+          const newState = !expanded;
+          btn.setAttribute('aria-expanded', String(newState));
+          panel.classList.toggle('show', newState);
+          panel.setAttribute('aria-hidden', String(!newState));
+          btn.textContent = newState ? '–' : '+';
         });
 
         header.appendChild(title);
@@ -358,15 +621,30 @@
       });
     }
 
-    // build accordions for each panel that needs publications
-    ['pubs-accordion','pubs-accordion-ml','pubs-accordion-genai'].forEach(buildPublicationsAccordion);
+    // Render pubs only when tab is activated
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.target;
+        if (target === 'panel-ai') buildPublicationsAccordion('pubs-accordion-ai');
+        if (target === 'panel-ml') buildPublicationsAccordion('pubs-accordion-ml');
+        if (target === 'panel-genai') buildPublicationsAccordion('pubs-accordion-genai');
+      });
+    });
 
-    /* KNFL game (robust) */
+    /* KNFL GAME */
     (function initKnfl(){
-      const roll = document.getElementById('knfl-roll');
-      const diceHolder = document.getElementById('knfl-dice');
-      const scoreBox = document.getElementById('knfl-score');
+      const roll = $('#knfl-roll');
+      const diceHolder = $('#knfl-dice');
+      const scoreBox = $('#knfl-score');
       if(!roll || !diceHolder || !scoreBox) return;
+
+      const DICE_COUNT = 5;
+      const SCORES = {
+        KNFL: 500,
+        BIG_STREET: 40,
+        LIL_STREET: 30,
+        FULLHOUSE: 25
+      };
 
       let totalPlays = 0, totalHighWins = 0, totalPoints = 0;
 
@@ -381,94 +659,148 @@
       }
 
       function evaluate(arr){
-        arr.sort((a,b)=>a-b);
-        let prev = null, isKNFL=true, streetCount=1, isLil=false, isBig=false;
-        const cnt = {1:0,2:0,3:0,4:0,5:0,6:0};
-        arr.forEach(x=>{
-          cnt[x]++; if(prev !== null){
-            if(prev !== x){ isKNFL=false; if((x - 1) !== prev) streetCount = 1; else { streetCount++; if(streetCount===4) isLil=true; if(streetCount>4) isBig=true; } }
-          } prev = x;
-        });
-        let fullhouseCount=0, target=null, targetPoints=0;
-        for(let k=1;k<=6;k++){ if(cnt[k]>=2) fullhouseCount += cnt[k]; if(k*cnt[k] > targetPoints){ target=k; targetPoints=k*cnt[k]; } }
-        let winText='-', winPoints=0;
-        if(isKNFL){ winText='KNFL'; winPoints=500; totalHighWins++; }
-        else if(isBig||isLil){ winText = isBig ? 'Big street' : "Lil' street"; winPoints = isBig ? 40 : 30; }
-        else if(fullhouseCount === 5){ winText='Fullhouse'; winPoints=25; }
-        else { winText = `Stack (${cnt[target]}) of ${target}`; winPoints = targetPoints; }
+        const sorted = [...arr].sort((a,b)=>a-b);
+        const unique = [...new Set(sorted)];
+
+        // KNFL
+        const isKNFL = sorted.every(v => v === sorted[0]);
+
+        // Street
+        let maxStreet = 1, current = 1;
+        for (let i = 1; i < unique.length; i++) {
+          if (unique[i] === unique[i-1] + 1) {
+            current++;
+            maxStreet = Math.max(maxStreet, current);
+          } else {
+            current = 1;
+          }
+        }
+        const isBig = maxStreet >= 5;
+        const isLil = maxStreet >= 4 && !isBig;
+
+        // Fullhouse: 3 of one + 2 of another
+        const counts = {};
+        sorted.forEach(v => counts[v] = (counts[v] || 0) + 1);
+        const freqs = Object.values(counts).sort((a,b)=>b-a);
+        const isFullhouse = freqs.length === 2 && freqs[0] === 3 && freqs[1] === 2;
+
+        // Default: highest stack score
+        let winText = 'Stack', winPoints = 0;
+        if (isKNFL) {
+          winText = 'KNFL';
+          winPoints = SCORES.KNFL;
+          totalHighWins++;
+        } else if (isBig) {
+          winText = 'Big street';
+          winPoints = SCORES.BIG_STREET;
+        } else if (isLil) {
+          winText = "Lil' street";
+          winPoints = SCORES.LIL_STREET;
+        } else if (isFullhouse) {
+          winText = 'Fullhouse';
+          winPoints = SCORES.FULLHOUSE;
+        } else {
+          const bestValue = sorted.reduce((a, b) => counts[a] > counts[b] ? a : b);
+          winPoints = bestValue * counts[bestValue];
+          winText = `Stack (${counts[bestValue]}) of ${bestValue}`;
+        }
+
         totalPoints += winPoints;
         totalPlays++;
-        const pct = Math.ceil(100 / totalPlays * totalHighWins) + '%';
-        return {winText,winPoints,totalPoints,totalPlays,pct};
+        const pct = totalPlays ? Math.ceil(100 * totalHighWins / totalPlays) + '%' : '0%';
+
+        return { winText, winPoints, totalPoints, totalPlays, pct };
       }
 
       roll.addEventListener('click', ()=>{
-        const arr = Array.from({length:5},()=>Math.floor(Math.random()*6)+1);
+        const arr = Array.from({length: DICE_COUNT}, () => Math.floor(Math.random()*6)+1);
         renderDice(arr);
         const res = evaluate(arr);
         scoreBox.innerHTML = `Current: ${res.winText} (${res.winPoints} pts) — Total: ${res.totalPoints} pts | Plays: ${res.totalPlays} | KNFL %: ${res.pct}`;
       });
     })();
 
-    /* Playground canvas lazy init */
+    /* PLAYGROUND CANVAS */
     let playgroundInitialized = false;
     function initPlayground(){
       if(playgroundInitialized) return;
       playgroundInitialized = true;
-      // code adapted from the previous playground: simpler and robust
-      const canvas = document.getElementById('gameCanvas');
-      const prompt = document.getElementById('instructionPrompt');
+      const canvas = $('#gameCanvas');
+      const prompt = $('#instructionPrompt');
       if(!canvas) return;
-      // size & retina-aware
+
       function fitCanvas(){
         const dpr = window.devicePixelRatio || 1;
-        canvas.width = Math.floor(canvas.clientWidth * dpr);
-        canvas.height = Math.floor(window.innerHeight * 0.6 * dpr);
-        canvas.style.height = (window.innerHeight * 0.6) + 'px';
+        const vh = window.innerHeight * 0.6;
+        canvas.width = vh * dpr;
+        canvas.height = vh * dpr;
+        canvas.style.height = vh + 'px';
+        canvas.style.width = '100%';
         const ctx = canvas.getContext('2d');
         ctx.scale(dpr, dpr);
         return ctx;
       }
-      let ctx = fitCanvas();
-      window.addEventListener('resize', ()=> { ctx = fitCanvas(); });
 
-      // lightweight shape system
-      let shapes = [], mouseDown=false, mouseX=-1, mouseY=-1, colourAngle=0;
-      function rand(min,max){return min + Math.random()*(max-min);}
-      function createShape(x,y){
-        const s = {x,y,rad:rand(8,40),n:Math.floor(rand(3,10)),ang:rand(0,Math.PI*2),vel:{x:rand(-3,3),y:rand(-2,6)},col:{r:Math.floor(128+100*Math.sin(colourAngle)), g:Math.floor(128+100*Math.cos(colourAngle)), b:Math.floor(128-100*Math.sin(colourAngle))},alpha:1};
-        colourAngle += 0.08; shapes.push(s);
+      let ctx = fitCanvas();
+      window.addEventListener('resize', () => { ctx = fitCanvas(); });
+
+      let shapes = [], mouseDown = false, colourAngle = 0;
+      const rand = (min, max) => min + Math.random() * (max - min);
+
+      function createShape(x, y){
+        const s = {
+          x, y,
+          rad: rand(8, 40),
+          vel: { x: rand(-3, 3), y: rand(-2, 6) },
+          col: {
+            r: Math.floor(128 + 100 * Math.sin(colourAngle)),
+            g: Math.floor(128 + 100 * Math.cos(colourAngle)),
+            b: Math.floor(128 - 100 * Math.sin(colourAngle))
+          },
+          alpha: 1
+        };
+        colourAngle += 0.08;
+        shapes.push(s);
       }
+
       function draw(){
-        ctx.clearRect(0,0,canvas.clientWidth,canvas.clientHeight);
-        shapes.forEach((s,i)=>{
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = shapes.length - 1; i >= 0; i--) {
+          const s = shapes[i];
           ctx.beginPath();
           ctx.fillStyle = `rgba(${s.col.r},${s.col.g},${s.col.b},${s.alpha})`;
-          ctx.arc(s.x, s.y, s.rad, 0, Math.PI*2);
+          ctx.arc(s.x, s.y, s.rad, 0, Math.PI * 2);
           ctx.fill();
-          s.x += s.vel.x; s.y += s.vel.y; s.alpha *= 0.995;
-          if(s.alpha < 0.02) shapes.splice(i,1);
-        });
+          s.x += s.vel.x;
+          s.y += s.vel.y;
+          s.alpha *= 0.995;
+          if (s.alpha < 0.02) shapes.splice(i, 1);
+        }
         requestAnimationFrame(draw);
       }
-      canvas.addEventListener('mousemove', (e)=> {
+
+      canvas.addEventListener('mousemove', (e) => {
         const rect = canvas.getBoundingClientRect();
-        mouseX = e.clientX - rect.left; mouseY = e.clientY - rect.top;
-        if(Math.random() > 0.6) createShape(mouseX, mouseY);
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        if (Math.random() > 0.6) createShape(x, y);
       });
-      canvas.addEventListener('mousedown', ()=> { mouseDown = true; });
-      document.addEventListener('mouseup', ()=> { mouseDown = false; });
-      prompt.style.display = 'block';
-      setTimeout(()=> prompt.style.opacity = '1', 60);
+
+      canvas.addEventListener('mousedown', () => { mouseDown = true; });
+      window.addEventListener('mouseup', () => { mouseDown = false; });
+
+      if (prompt) {
+        prompt.style.display = 'block';
+        prompt.style.opacity = '1';
+      }
+
       draw();
     }
 
-    // Initialize playground only when tab opened; also when user uses keyboard to activate
-    document.getElementById('tab-play').addEventListener('click', ()=> initPlayground());
-    document.getElementById('tab-play').addEventListener('keydown', (e)=> { if(e.key === 'Enter') initPlayground(); });
+    $('#tab-play').addEventListener('click', initPlayground);
+    $('#tab-play').addEventListener('keydown', (e) => { if(e.key === 'Enter') initPlayground(); });
 
-    // Defensive: also init if panel already active on load
-    if(!document.getElementById('panel-play').hidden) initPlayground();
+    if (!$('#panel-play').hidden) initPlayground();
 
   })();
   </script>
