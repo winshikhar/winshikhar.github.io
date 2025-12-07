@@ -248,11 +248,17 @@
       justify-content: space-between;
       padding: 12px 14px;
       background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      cursor: pointer;
     }
     [data-theme="light"] .acc-h {
       background: linear-gradient(180deg, rgba(0,0,0,0.01), rgba(0,0,0,0.005));
     }
-    .acc-title { font-weight: 600; font-size: 0.95rem; }
+    .acc-title { 
+      font-weight: 600; 
+      font-size: 0.95rem;
+      flex: 1;
+      text-align: left;
+    }
     .acc-btn {
       background: none;
       border: none;
@@ -264,6 +270,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
+      margin-left: 12px;
     }
     .acc-panel {
       padding: 12px 14px;
@@ -274,6 +282,20 @@
     [data-theme="light"] .acc-panel { color: #475569; }
     .acc-panel.show { display: block; }
 
+    .pub-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+      font-size: 1.05rem;
+    }
+    .pub-authors {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+    [data-theme="light"] .pub-authors {
+      color: #64748b;
+    }
     .pub-venue {
       font-size: 0.9rem;
       margin-top: 4px;
@@ -284,7 +306,17 @@
     }
     .pub-link {
       display: inline-block;
-      margin-top: 6px;
+      margin-top: 8px;
+      padding: 6px 12px;
+      background: var(--glass);
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    .pub-link:hover {
+      background: rgba(124, 58, 237, 0.2);
+    }
+    [data-theme="light"] .pub-link:hover {
+      background: rgba(124, 58, 237, 0.1);
     }
 
     .knfl .playground {
@@ -325,6 +357,11 @@
       border: none;
       border-radius: 8px;
     }
+    .pdf-loading {
+      text-align: center;
+      padding: 20px;
+      color: var(--muted);
+    }
 
     #gameCanvas {
       width: 100%;
@@ -336,10 +373,26 @@
     .tab:focus,
     .knfl .roll:focus,
     .theme-toggle:focus,
-    .acc-btn:focus {
+    .acc-btn:focus,
+    .acc-h:focus {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
       border-radius: 8px;
+    }
+    
+    /* Loading indicator */
+    .loader {
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top: 3px solid var(--accent);
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -503,15 +556,20 @@
       <section id="panel-resume" role="tabpanel" hidden tabindex="0">
         <h2>Resume</h2>
         <p class="muted">Download or view my full CV.</p>
-        <embed id="resumeViewer" src="resume.pdf" type="application/pdf" />
-        <p style="margin-top:10px"><a href="resume.pdf" download>Download PDF</a></p>
+        <div id="resumeContainer">
+          <div class="loader"></div>
+          <div class="pdf-loading">Loading resume...</div>
+        </div>
+        <p style="margin-top:20px"><a href="resume.pdf" download>Download PDF</a></p>
       </section>
 
       <!-- PUBLICATIONS -->
       <section id="panel-pubs" role="tabpanel" hidden tabindex="0">
         <h2>Publications</h2>
         <p class="muted">Peer-reviewed research in IoT, SDN, privacy, and secure communications.</p>
-        <div class="accordion" id="pubs-accordion"></div>
+        <div class="accordion" id="pubs-accordion">
+          <div class="loader"></div>
+        </div>
       </section>
 
       <!-- KNFL -->
@@ -540,6 +598,12 @@
     window.dataLayer = window.dataLayer || [];
     const $ = s => document.querySelector(s);
     const $$ = s => [...document.querySelectorAll(s)];
+
+    // DOM Ready check
+    const whenDOMReady = new Promise(resolve => {
+      if (document.readyState !== 'loading') resolve();
+      else document.addEventListener('DOMContentLoaded', resolve);
+    });
 
     // Theme + Favicon
     const root = document.documentElement;
@@ -579,6 +643,16 @@
       const panel = $(`#${id}`);
       if (panel) { panel.hidden = false; panel.focus(); }
       window.dataLayer.push({event: 'tab_view', tab_name: id});
+      
+      // Special handling for Resume tab to load PDF
+      if (id === 'panel-resume') {
+        loadResume();
+      }
+      
+      // Special handling for Publications tab
+      if (id === 'panel-pubs') {
+        buildPubs();
+      }
     };
     $('.tabs').addEventListener('click', e => {
       const btn = e.target.closest('[role="tab"]');
@@ -596,10 +670,14 @@
       }
     });
 
-    // Publications (Accordion)
-    function buildPubs(){
+    // Publications (Accordion) - Fixed initialization
+    function buildPubs() {
       const el = $('#pubs-accordion');
-      if(!el || el.children.length) return;
+      if (!el || el.children.length > 1) return; // Already built
+      
+      // Remove loader
+      el.innerHTML = '';
+      
       const pubs = [
         {
           title: "There is Mathematics for That! : A Formal Verification of Privacy and Simulative Analysis of Consumer-Centric Content Delivery in IoT",
@@ -644,44 +722,101 @@
           url: "https://doi.org/10.1109/CCICT53244.2021.00042"
         }
       ];
+      
       pubs.forEach((p,i) => {
         const item = document.createElement('div');
         item.className = 'acc-item';
-        const h = document.createElement('div'); h.className = 'acc-h';
-        const t = document.createElement('div'); t.className = 'acc-title';
-        t.textContent = `${p.authors} — ${p.title} (${p.year})`;
-        const b = document.createElement('button'); b.className = 'acc-btn'; b.textContent = '+'; b.setAttribute('aria-expanded','false'); b.setAttribute('aria-controls',`p${i}`);
-        const panel = document.createElement('div'); panel.className = 'acc-panel'; panel.id = `p${i}`;
+        const h = document.createElement('div'); 
+        h.className = 'acc-h';
+        h.setAttribute('tabindex', '0');
+        h.setAttribute('role', 'button');
+        h.setAttribute('aria-expanded', 'false');
+        h.setAttribute('aria-controls', `pub-panel-${i}`);
+        
+        const tWrap = document.createElement('div');
+        tWrap.className = 'acc-title-wrap';
+        
+        const title = document.createElement('div');
+        title.className = 'pub-title';
+        title.textContent = p.title;
+        
+        const authors = document.createElement('div');
+        authors.className = 'pub-authors';
+        authors.textContent = `${p.authors} (${p.year})`;
+        
+        const b = document.createElement('button'); 
+        b.className = 'acc-btn'; 
+        b.textContent = '+'; 
+        b.setAttribute('aria-expanded', 'false'); 
+        b.setAttribute('aria-controls', `pub-panel-${i}`);
+        
+        const panel = document.createElement('div'); 
+        panel.className = 'acc-panel'; 
+        panel.id = `pub-panel-${i}`;
+        panel.setAttribute('aria-hidden', 'true');
+        
         const venue = document.createElement('div');
         venue.className = 'pub-venue';
         venue.textContent = p.venue;
+        
         const link = document.createElement('a');
         link.className = 'pub-link';
-        link.href = p.url;
+        link.href = p.url.trim();
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
         link.textContent = 'View publication';
+        link.addEventListener('click', (e) => {
+          e.stopPropagation();
+          window.dataLayer.push({
+            event: 'publication_click',
+            publication_title: p.title,
+            publication_url: p.url.trim()
+          });
+        });
+        
         panel.append(venue, link);
-        b.onclick = () => {
-          const isExpanded = b.getAttribute('aria-expanded') === 'true';
-          b.setAttribute('aria-expanded', !isExpanded);
-          panel.classList.toggle('show', !isExpanded);
-          panel.setAttribute('aria-hidden', isExpanded);
-          b.textContent = isExpanded ? '+' : '–';
-        };
-        h.append(t,b);
-        item.append(h,panel);
+        tWrap.append(title, authors);
+        h.append(tWrap, b);
+        item.append(h, panel);
+        
+        // Make entire header clickable
+        h.addEventListener('click', () => togglePubItem(item, panel, b, h));
+        h.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            togglePubItem(item, panel, b, h);
+          }
+        });
+        
         el.append(item);
       });
     }
-    $('#panel-pubs').addEventListener('click', buildPubs);
+    
+    function togglePubItem(item, panel, button, header) {
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+      const newState = !isExpanded;
+      
+      button.setAttribute('aria-expanded', newState);
+      button.textContent = newState ? '–' : '+';
+      header.setAttribute('aria-expanded', newState);
+      panel.classList.toggle('show', newState);
+      panel.setAttribute('aria-hidden', !newState);
+    }
+
+    // Load publications on DOM ready
+    whenDOMReady.then(() => {
+      if ($('#panel-pubs').hidden) {
+        // Build the publications structure but keep it hidden
+        buildPubs();
+      }
+    });
 
     // KNFL
     const roll = $('#knfl-roll'), dice = $('#knfl-dice'), score = $('#knfl-score');
     if (roll) {
       roll.onclick = () => {
         const a = Array(5).fill().map(() => Math.floor(Math.random()*6)+1);
-        dice.innerHTML = a.map(n => `<div class="dice" role="img" aria-label="Die ${n}">${n}</div>`).join('');
+        dice.innerHTML = a.map(n => `<div class="dice" role="img" aria-label="Die showing ${n}">${n}</div>`).join('');
         const s = [...a].sort(), u = [...new Set(s)];
         const knfl = s.every(x=>x===s[0]);
         let ms=1,cur=1;
@@ -697,29 +832,51 @@
         else if(fh){txt='Fullhouse';pt=25;}
         else{const best=s.reduce((a,b)=>c[a]>c[b]?a:b);pt=best*c[best];txt=`Stack (${c[best]}) of ${best}`;}
         score.textContent = `${txt} — ${pt} pts`;
-        window.dataLayer.push({event: 'knfl_roll'});
+        window.dataLayer.push({event: 'knfl_roll', result: txt, points: pt});
       };
     }
 
-    // Playground
+    // Playground with performance optimization
     let pgInit = false;
+    let animationFrameId = null;
+    let lastMouseMoveTime = 0;
+    
+    function throttle(func, limit) {
+      return function() {
+        const now = Date.now();
+        if (now - lastMouseMoveTime >= limit) {
+          func.apply(this, arguments);
+          lastMouseMoveTime = now;
+        }
+      };
+    }
+    
     const initPG = () => {
       if (pgInit) return; pgInit = true;
       const c = $('#gameCanvas');
       if (!c) return;
-      const dpr = window.devicePixelRatio || 1;
-      const vh = window.innerHeight * 0.5;
-      c.width = vh * dpr; c.height = vh * dpr;
-      c.style.height = vh + 'px';
+      
+      const resizeCanvas = () => {
+        const dpr = window.devicePixelRatio || 1;
+        const vh = Math.min(window.innerHeight * 0.5, 500);
+        c.width = c.offsetWidth * dpr;
+        c.height = vh * dpr;
+        c.style.height = vh + 'px';
+      };
+      
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      
       const ctx = c.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
       ctx.scale(dpr, dpr);
+      
       let shapes = [], ang = 0;
       const rand = (min, max) => min + Math.random() * (max - min);
-      c.addEventListener('mousemove', e => {
-        const r = c.getBoundingClientRect();
-        if (Math.random() > 0.7) shapes.push({
-          x: e.clientX - r.left,
-          y: e.clientY - r.top,
+      
+      const addShape = (x, y) => {
+        shapes.push({
+          x, y,
           rad: rand(8, 30),
           vel: {x: rand(-2, 2), y: rand(-1, 4)},
           col: {
@@ -730,23 +887,107 @@
           alpha: 1
         });
         ang += 0.1;
+      };
+      
+      const throttledMouseMove = throttle((e) => {
+        const r = c.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        
+        if (Math.random() > 0.7) {
+          addShape(x, y);
+        }
+      }, 50);
+      
+      c.addEventListener('mousemove', throttledMouseMove);
+      
+      let isMouseDown = false;
+      c.addEventListener('mousedown', () => {
+        isMouseDown = true;
+        document.documentElement.style.cursor = 'grabbing';
       });
+      document.addEventListener('mouseup', () => {
+        isMouseDown = false;
+        document.documentElement.style.cursor = '';
+      });
+      
       const draw = () => {
         ctx.clearRect(0, 0, c.width, c.height);
+        
+        // Apply mouse down effect to all shapes
+        if (isMouseDown) {
+          shapes.forEach(s => {
+            s.vel.x += rand(-0.5, 0.5);
+            s.vel.y += rand(-0.5, 0.5);
+          });
+        }
+        
         for (let i = shapes.length - 1; i >= 0; i--) {
           const s = shapes[i];
           ctx.beginPath();
           ctx.fillStyle = `rgba(${s.col.r},${s.col.g},${s.col.b},${s.alpha})`;
           ctx.arc(s.x, s.y, s.rad, 0, Math.PI * 2);
           ctx.fill();
-          s.x += s.vel.x; s.y += s.vel.y; s.alpha *= 0.98;
+          
+          s.x += s.vel.x;
+          s.y += s.vel.y;
+          s.alpha *= 0.98;
+          
+          // Boundary conditions
+          if (s.x < 0 || s.x > c.width) s.vel.x *= -0.8;
+          if (s.y < 0 || s.y > c.height) s.vel.y *= -0.8;
+          
           if (s.alpha < 0.05) shapes.splice(i, 1);
         }
-        requestAnimationFrame(draw);
+        
+        animationFrameId = requestAnimationFrame(draw);
       };
+      
       draw();
     };
-    $('#panel-play').addEventListener('click', initPG);
+    
+    // Resume loading with fallback
+    function loadResume() {
+      const container = $('#resumeContainer');
+      if (container.innerHTML.includes('embed')) return;
+      
+      const embed = document.createElement('embed');
+      embed.id = 'resumeViewer';
+      embed.src = 'resume.pdf';
+      embed.type = 'application/pdf';
+      embed.setAttribute('aria-label', 'Resume PDF document');
+      
+      embed.onerror = () => {
+        container.innerHTML = `
+          <p class="muted" style="text-align:center;padding:40px;">
+            Unable to load resume. Please <a href="resume.pdf" download style="color:var(--accent)">download the PDF</a> instead.
+          </p>
+        `;
+      };
+      
+      // Replace loader with embed after a short delay for UX
+      setTimeout(() => {
+        container.innerHTML = '';
+        container.appendChild(embed);
+      }, 500);
+    }
+    
+    // Initialize components on tab activation
+    $('.tabs').addEventListener('click', e => {
+      const btn = e.target.closest('[role="tab"]');
+      if (btn) {
+        const id = btn.dataset.target;
+        if (id === 'panel-play' && !pgInit) {
+          initPG();
+        }
+        if (id === 'panel-resume') {
+          loadResume();
+        }
+        if (id === 'panel-pubs' && $('#pubs-accordion').children.length === 1) {
+          buildPubs();
+        }
+      }
+    });
   </script>
 </body>
 </html>
