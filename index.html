@@ -6,18 +6,16 @@
   <title>Dr. Shikhar Bhardwaj (Ph.D.) — AI/ML/GenAI, DevOps Engineer & Researcher</title>
   <meta name="description" content="PhD researcher and engineer specializing in on-prem GenAI, RAG, edge ML, IoT/SDN, and secure infrastructure automation." />
 
-  <!-- Favicons -->
-  <link id="favicon" rel="icon" href="favicon-dark.ico" />
+  <!-- Favicons (no id; media-controlled only) -->
   <link rel="icon" href="favicon-light.ico" media="(prefers-color-scheme: light)" />
   <link rel="icon" href="favicon-dark.ico" media="(prefers-color-scheme: dark)" />
 
-  <!-- Google Tag Manager -->
+  <!-- Google Tag Manager (fixed spacing in ID) -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-5V9SPS7G');</script>
-  <!-- End Google Tag Manager -->
 
   <style media="print">
     * { -webkit-print-color-adjust: exact !important; color-adjust: exact !important; box-shadow: none !important; }
@@ -27,9 +25,6 @@
     }
     .muted, ul, .chip, .inline-contact { color: #555 !important; }
     a { color: #007bff !important; text-decoration: underline !important; }
-    canvas, .knfl .playground, .knfl .roll, .knfl .score { display: none !important; }
-    .tabs { display: none; }
-    [role="tabpanel"] { display: block !important; }
     section { page-break-after: always; }
   </style>
 
@@ -45,7 +40,6 @@
       --radius: 12px;
       --maxwidth: 1100px;
       --mono: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --bp-md: 920px;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
     @media (prefers-reduced-motion: reduce) {
@@ -230,58 +224,6 @@
       color: var(--accent);
     }
 
-    /* Accordion */
-    .accordion {
-      margin-top: 12px;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-    [data-theme="light"] .accordion {
-      border-color: rgba(0,0,0,0.1);
-    }
-    .acc-item { border-bottom: 1px solid rgba(255,255,255,0.02); }
-    [data-theme="light"] .acc-item { border-bottom-color: rgba(0,0,0,0.05); }
-    .acc-h {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 14px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
-      cursor: pointer;
-    }
-    [data-theme="light"] .acc-h {
-      background: linear-gradient(180deg, rgba(0,0,0,0.01), rgba(0,0,0,0.005));
-    }
-    .acc-title { 
-      font-weight: 600; 
-      font-size: 0.95rem;
-      flex: 1;
-      text-align: left;
-    }
-    .acc-btn {
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-weight: 700;
-      cursor: pointer;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-left: 12px;
-    }
-    .acc-panel {
-      padding: 12px 14px;
-      background: transparent;
-      color: #cfe8ff;
-      display: none;
-    }
-    [data-theme="light"] .acc-panel { color: #475569; }
-    .acc-panel.show { display: block; }
-
     .pub-title {
       font-weight: 700;
       margin-bottom: 4px;
@@ -349,6 +291,7 @@
     .knfl-score {
       margin-top: 12px;
       display: block;
+      min-height: 1.5em;
     }
 
     #resumeViewer {
@@ -362,25 +305,6 @@
       padding: 20px;
       color: var(--muted);
     }
-
-    #gameCanvas {
-      width: 100%;
-      height: 50vh;
-      border-radius: 8px;
-      display: block;
-    }
-
-    .tab:focus,
-    .knfl .roll:focus,
-    .theme-toggle:focus,
-    .acc-btn:focus,
-    .acc-h:focus {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-      border-radius: 8px;
-    }
-    
-    /* Loading indicator */
     .loader {
       border: 3px solid rgba(255,255,255,0.3);
       border-radius: 50%;
@@ -393,6 +317,15 @@
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
+    }
+
+    .tab:focus,
+    .knfl .roll:focus,
+    .theme-toggle:focus,
+    summary:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 8px;
     }
   </style>
 </head>
@@ -415,7 +348,7 @@
       </div>
       <button class="theme-toggle" id="themeToggle" title="Toggle theme" data-gtm-event="theme_toggle">
         <span id="themeIcon">🌓</span>
-        <span id="themeLabel">Dark</span>
+        <span id="themeLabel">Auto</span>
       </button>
     </header>
 
@@ -428,7 +361,6 @@
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-resume" data-target="panel-resume">Resume</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-pubs" data-target="panel-pubs">Publications</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-knfl" data-target="panel-knfl">KNFL</button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-play" data-target="panel-play">Playground</button>
     </nav>
 
     <main class="card" id="mainCard">
@@ -567,8 +499,8 @@
       <section id="panel-pubs" role="tabpanel" hidden tabindex="0">
         <h2>Publications</h2>
         <p class="muted">Peer-reviewed research in IoT, SDN, privacy, and secure communications.</p>
-        <div class="accordion" id="pubs-accordion">
-          <div class="loader"></div>
+        <div id="pubs-list">
+          <!-- Will be populated by JS -->
         </div>
       </section>
 
@@ -579,48 +511,30 @@
         <div class="knfl">
           <div class="playground" id="knfl-dice" aria-label="Dice results"></div>
           <button class="knfl roll" id="knfl-roll" data-gtm-event="knfl_roll">Roll Dice</button>
-          <div class="knfl-score" id="knfl-score"></div>
+          <div class="knfl-score" id="knfl-score" aria-live="polite"></div>
           <p class="muted" style="margin-top:10px;font-size:0.9rem">KNFL = 500 pts. Rare but accumulates.</p>
         </div>
-      </section>
-
-      <!-- PLAYGROUND -->
-      <section id="panel-play" role="tabpanel" hidden tabindex="0">
-        <h2>Playground</h2>
-        <p class="muted">Move your mouse to generate animated particles.</p>
-        <canvas id="gameCanvas" aria-label="Interactive particle canvas"></canvas>
-        <p class="muted" style="margin-top:10px">Click & hold to alter dynamics.</p>
       </section>
     </main>
   </div>
 
   <script>
+    // GTM dataLayer
     window.dataLayer = window.dataLayer || [];
+
     const $ = s => document.querySelector(s);
     const $$ = s => [...document.querySelectorAll(s)];
 
-    // DOM Ready check
-    const whenDOMReady = new Promise(resolve => {
-      if (document.readyState !== 'loading') resolve();
-      else document.addEventListener('DOMContentLoaded', resolve);
-    });
-
-    // Theme + Favicon
+    // Theme handling
     const root = document.documentElement;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     let theme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
     root.setAttribute('data-theme', theme);
-    const favicon = document.getElementById('favicon');
+
     const updateTheme = () => {
-      if (theme === 'light') {
-        document.getElementById('themeIcon').textContent = '☀️';
-        document.getElementById('themeLabel').textContent = 'Light';
-        favicon.href = 'favicon-light.ico';
-      } else {
-        document.getElementById('themeIcon').textContent = '🌙';
-        document.getElementById('themeLabel').textContent = 'Dark';
-        favicon.href = 'favicon-dark.ico';
-      }
+      const isDark = theme === 'dark';
+      document.getElementById('themeIcon').textContent = isDark ? '🌙' : '☀️';
+      document.getElementById('themeLabel').textContent = isDark ? 'Dark' : 'Light';
     };
     updateTheme();
 
@@ -632,35 +546,68 @@
       window.dataLayer.push({event: 'theme_toggle', theme_mode: theme});
     });
 
-    // Tabs
-    const tabs = $$('[role="tab"]'), panels = $$('[role="tabpanel"]');
-    const activateTab = btn => {
+    // Tab system with hash support
+    const tabs = $$('[role="tab"]');
+    const panels = $$('[role="tabpanel"]');
+    const tabNames = {
+      'panel-home': 'Home',
+      'panel-aiml': 'AI/ML/GenAI',
+      'panel-devops': 'DevOps Engineer',
+      'panel-projects': 'Projects',
+      'panel-blog': 'Blog',
+      'panel-resume': 'Resume',
+      'panel-pubs': 'Publications',
+      'panel-knfl': 'KNFL'
+    };
+
+    const setTitle = (panelId) => {
+      document.title = `${tabNames[panelId] || 'Home'} – Dr. Shikhar Bhardwaj`;
+    };
+
+    const activateTab = (btn) => {
       tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
       panels.forEach(p => p.hidden = true);
+
       if (!btn) return;
+
       btn.setAttribute('aria-selected', 'true');
       const id = btn.dataset.target;
       const panel = $(`#${id}`);
-      if (panel) { panel.hidden = false; panel.focus(); }
-      window.dataLayer.push({event: 'tab_view', tab_name: id});
-      
-      // Special handling for Resume tab to load PDF
-      if (id === 'panel-resume') {
-        loadResume();
+      if (panel) {
+        panel.hidden = false;
+        panel.focus();
+        window.location.hash = id;
+        setTitle(id);
       }
-      
-      // Special handling for Publications tab
-      if (id === 'panel-pubs') {
-        buildPubs();
+
+      window.dataLayer.push({event: 'tab_view', tab_name: id});
+
+      if (id === 'panel-resume') loadResume();
+      if (id === 'panel-pubs') buildPubs();
+    };
+
+    // Handle hash on load
+    const initTabFromHash = () => {
+      const hash = window.location.hash.slice(1);
+      const tab = $(`[data-target="${hash}"]`);
+      if (tab) {
+        activateTab(tab);
+      } else {
+        const defaultTab = $('.tab[aria-selected="true"]');
+        if (defaultTab) activateTab(defaultTab);
+        else setTitle('panel-home');
       }
     };
+
     $('.tabs').addEventListener('click', e => {
       const btn = e.target.closest('[role="tab"]');
       if (btn) activateTab(btn);
     });
-    activateTab($('.tab[aria-selected="true"]'));
 
-    // Outbound events
+    window.addEventListener('hashchange', initTabFromHash);
+    initTabFromHash();
+
+    // Outbound link tracking
     document.addEventListener('click', e => {
       const el = e.target.closest('[data-gtm-event]');
       if (el) {
@@ -670,324 +617,152 @@
       }
     });
 
-    // Publications (Accordion) - Fixed initialization
-    function buildPubs() {
-      const el = $('#pubs-accordion');
-      if (!el || el.children.length > 1) return; // Already built
-      
-      // Remove loader
-      el.innerHTML = '';
-      
-      const pubs = [
-        {
-          title: "There is Mathematics for That! : A Formal Verification of Privacy and Simulative Analysis of Consumer-Centric Content Delivery in IoT",
-          authors: "Shikhar Bhardwaj, Sandeep Harit, Shilpa",
-          year: 2025,
-          venue: "Transactions on Emerging Telecommunications Technologies (SCIE)",
-          url: "https://onlinelibrary.wiley.com/doi/10.1002/ett.70059"
-        },
-        {
-          title: "Towards a software-defined networking model for consumer-centric content delivery network for IoT",
-          authors: "Shikhar Bhardwaj, Sandeep Harit, Anil Yadav",
-          year: 2023,
-          venue: "Transactions on Emerging Telecommunications Technologies (SCIE)",
-          url: "https://onlinelibrary.wiley.com/doi/abs/10.1002/ett.4903"
-        },
-        {
-          title: "Message Queuing Telemetry Transport - Secure Connection: A Power-efficient Secure Communication",
-          authors: "Shikhar Bhardwaj, Sandeep Harit, Shilpa, Darpan Anand",
-          year: 2023,
-          venue: "International Journal of Sensor Networks (IJSN SCIE)",
-          url: "https://doi.org/10.1504/IJSNET.2023.131246"
-        },
-        {
-          title: "SDN-Enabled Secure IoT Architecture Development: A Review",
-          authors: "Bhardwaj S., Harit S.",
-          year: 2022,
-          venue: "Inventive Communication and Computational Technologies (ICICCT). Lecture Notes in Networks and Systems, vol 311. Springer",
-          url: "https://doi.org/10.1007/978-981-16-5529-6_47"
-        },
-        {
-          title: "Traceability of Unwitting Disclosure Using Explainable Correlation in Procurement and Supply Chain",
-          authors: "Gunjal, H.V.; Ingale, V.; Bhardwaj, S.; Belokar, R.M.",
-          year: 2023,
-          venue: "Applications of Emerging Technologies and AI/ML Algorithms. ICDAPS 2022. Asset Analytics. Springer",
-          url: "https://doi.org/10.1007/978-981-99-1019-9_35"
-        },
-        {
-          title: "Stacking Ensemble-based Automatic Web Page Classification",
-          authors: "D. Deeksha, R. Bhatia, S. Bhardwaj, M. Kumar, K. Bhatia and S. S. Gill",
-          year: 2021,
-          venue: "Fourth International Conference on Computational Intelligence and Communication Technologies (CCICT), IEEE",
-          url: "https://doi.org/10.1109/CCICT53244.2021.00042"
-        }
-      ];
-      
-      pubs.forEach((p,i) => {
-        const item = document.createElement('div');
-        item.className = 'acc-item';
-        const h = document.createElement('div'); 
-        h.className = 'acc-h';
-        h.setAttribute('tabindex', '0');
-        h.setAttribute('role', 'button');
-        h.setAttribute('aria-expanded', 'false');
-        h.setAttribute('aria-controls', `pub-panel-${i}`);
-        
-        const tWrap = document.createElement('div');
-        tWrap.className = 'acc-title-wrap';
-        
-        const title = document.createElement('div');
-        title.className = 'pub-title';
-        title.textContent = p.title;
-        
-        const authors = document.createElement('div');
-        authors.className = 'pub-authors';
-        authors.textContent = `${p.authors} (${p.year})`;
-        
-        const b = document.createElement('button'); 
-        b.className = 'acc-btn'; 
-        b.textContent = '+'; 
-        b.setAttribute('aria-expanded', 'false'); 
-        b.setAttribute('aria-controls', `pub-panel-${i}`);
-        
-        const panel = document.createElement('div'); 
-        panel.className = 'acc-panel'; 
-        panel.id = `pub-panel-${i}`;
-        panel.setAttribute('aria-hidden', 'true');
-        
-        const venue = document.createElement('div');
-        venue.className = 'pub-venue';
-        venue.textContent = p.venue;
-        
-        const link = document.createElement('a');
-        link.className = 'pub-link';
-        link.href = p.url.trim();
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.textContent = 'View publication';
-        link.addEventListener('click', (e) => {
-          e.stopPropagation();
-          window.dataLayer.push({
-            event: 'publication_click',
-            publication_title: p.title,
-            publication_url: p.url.trim()
-          });
-        });
-        
-        panel.append(venue, link);
-        tWrap.append(title, authors);
-        h.append(tWrap, b);
-        item.append(h, panel);
-        
-        // Make entire header clickable
-        h.addEventListener('click', () => togglePubItem(item, panel, b, h));
-        h.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            togglePubItem(item, panel, b, h);
-          }
-        });
-        
-        el.append(item);
-      });
-    }
-    
-    function togglePubItem(item, panel, button, header) {
-      const isExpanded = button.getAttribute('aria-expanded') === 'true';
-      const newState = !isExpanded;
-      
-      button.setAttribute('aria-expanded', newState);
-      button.textContent = newState ? '–' : '+';
-      header.setAttribute('aria-expanded', newState);
-      panel.classList.toggle('show', newState);
-      panel.setAttribute('aria-hidden', !newState);
-    }
-
-    // Load publications on DOM ready
-    whenDOMReady.then(() => {
-      if ($('#panel-pubs').hidden) {
-        // Build the publications structure but keep it hidden
-        buildPubs();
+    // Publications using <details>
+    const pubs = [
+      {
+        title: "There is Mathematics for That! : A Formal Verification of Privacy and Simulative Analysis of Consumer-Centric Content Delivery in IoT",
+        authors: "Shikhar Bhardwaj, Sandeep Harit, Shilpa",
+        year: 2025,
+        venue: "Transactions on Emerging Telecommunications Technologies (SCIE)",
+        url: "https://onlinelibrary.wiley.com/doi/10.1002/ett.70059"
+      },
+      {
+        title: "Towards a software-defined networking model for consumer-centric content delivery network for IoT",
+        authors: "Shikhar Bhardwaj, Sandeep Harit, Anil Yadav",
+        year: 2023,
+        venue: "Transactions on Emerging Telecommunications Technologies (SCIE)",
+        url: "https://onlinelibrary.wiley.com/doi/abs/10.1002/ett.4903"
+      },
+      {
+        title: "Message Queuing Telemetry Transport - Secure Connection: A Power-efficient Secure Communication",
+        authors: "Shikhar Bhardwaj, Sandeep Harit, Shilpa, Darpan Anand",
+        year: 2023,
+        venue: "International Journal of Sensor Networks (IJSN SCIE)",
+        url: "https://doi.org/10.1504/IJSNET.2023.131246"
+      },
+      {
+        title: "SDN-Enabled Secure IoT Architecture Development: A Review",
+        authors: "Bhardwaj S., Harit S.",
+        year: 2022,
+        venue: "Inventive Communication and Computational Technologies (ICICCT). Lecture Notes in Networks and Systems, vol 311. Springer",
+        url: "https://doi.org/10.1007/978-981-16-5529-6_47"
+      },
+      {
+        title: "Traceability of Unwitting Disclosure Using Explainable Correlation in Procurement and Supply Chain",
+        authors: "Gunjal, H.V.; Ingale, V.; Bhardwaj, S.; Belokar, R.M.",
+        year: 2023,
+        venue: "Applications of Emerging Technologies and AI/ML Algorithms. ICDAPS 2022. Asset Analytics. Springer",
+        url: "https://doi.org/10.1007/978-981-99-1019-9_35"
+      },
+      {
+        title: "Stacking Ensemble-based Automatic Web Page Classification",
+        authors: "D. Deeksha, R. Bhatia, S. Bhardwaj, M. Kumar, K. Bhatia and S. S. Gill",
+        year: 2021,
+        venue: "Fourth International Conference on Computational Intelligence and Communication Technologies (CCICT), IEEE",
+        url: "https://doi.org/10.1109/CCICT53244.2021.00042"
       }
-    });
+    ];
 
-    // KNFL
-    const roll = $('#knfl-roll'), dice = $('#knfl-dice'), score = $('#knfl-score');
-    if (roll) {
-      roll.onclick = () => {
-        const a = Array(5).fill().map(() => Math.floor(Math.random()*6)+1);
-        dice.innerHTML = a.map(n => `<div class="dice" role="img" aria-label="Die showing ${n}">${n}</div>`).join('');
-        const s = [...a].sort(), u = [...new Set(s)];
-        const knfl = s.every(x=>x===s[0]);
-        let ms=1,cur=1;
-        for(let i=1;i<u.length;i++){if(u[i]===u[i-1]+1){cur++;ms=Math.max(ms,cur);}else cur=1;}
-        const big=ms>=5, lil=ms>=4&&!big;
-        const c={};s.forEach(x=>c[x]=(c[x]||0)+1);
-        const f=Object.values(c).sort((a,b)=>b-a);
-        const fh=f.length===2&&f[0]===3&&f[1]===2;
-        let txt,pt;
-        if(knfl){txt='KNFL';pt=500;}
-        else if(big){txt='Big street';pt=40;}
-        else if(lil){txt="Lil' street";pt=30;}
-        else if(fh){txt='Fullhouse';pt=25;}
-        else{const best=s.reduce((a,b)=>c[a]>c[b]?a:b);pt=best*c[best];txt=`Stack (${c[best]}) of ${best}`;}
-        score.textContent = `${txt} — ${pt} pts`;
-        window.dataLayer.push({event: 'knfl_roll', result: txt, points: pt});
-      };
+    function buildPubs() {
+      const container = $('#pubs-list');
+      if (container.children.length > 0) return;
+
+      pubs.forEach(p => {
+        const url = p.url.trim(); // ✅ FIX: TRIM WHITESPACE
+        const details = document.createElement('details');
+        details.innerHTML = `
+          <summary class="acc-h" style="list-style:none;cursor:pointer;padding:12px;background:var(--glass);border:1px solid rgba(255,255,255,0.03);border-radius:8px;margin-bottom:8px;">
+            <div class="pub-title">${p.title}</div>
+            <div class="pub-authors">${p.authors} (${p.year})</div>
+          </summary>
+          <div class="pub-venue" style="padding:12px;">${p.venue}</div>
+          <a href="${url}" target="_blank" rel="noopener noreferrer" class="pub-link"
+             onclick="window.dataLayer.push({event:'publication_click',publication_title:'${p.title.replace(/'/g,"\\'")}',publication_url:'${url}'});return true;">
+            View publication
+          </a>
+        `;
+        container.appendChild(details);
+      });
     }
 
-    // Playground with performance optimization
-    let pgInit = false;
-    let animationFrameId = null;
-    let lastMouseMoveTime = 0;
-    
-    function throttle(func, limit) {
-      return function() {
-        const now = Date.now();
-        if (now - lastMouseMoveTime >= limit) {
-          func.apply(this, arguments);
-          lastMouseMoveTime = now;
-        }
-      };
-    }
-    
-    const initPG = () => {
-      if (pgInit) return; pgInit = true;
-      const c = $('#gameCanvas');
-      if (!c) return;
-      
-      const resizeCanvas = () => {
-        const dpr = window.devicePixelRatio || 1;
-        const vh = Math.min(window.innerHeight * 0.5, 500);
-        c.width = c.offsetWidth * dpr;
-        c.height = vh * dpr;
-        c.style.height = vh + 'px';
-      };
-      
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
-      
-      const ctx = c.getContext('2d');
-      const dpr = window.devicePixelRatio || 1;
-      ctx.scale(dpr, dpr);
-      
-      let shapes = [], ang = 0;
-      const rand = (min, max) => min + Math.random() * (max - min);
-      
-      const addShape = (x, y) => {
-        shapes.push({
-          x, y,
-          rad: rand(8, 30),
-          vel: {x: rand(-2, 2), y: rand(-1, 4)},
-          col: {
-            r: 128 + 100 * Math.sin(ang),
-            g: 128 + 100 * Math.cos(ang),
-            b: 128 - 100 * Math.sin(ang)
-          },
-          alpha: 1
-        });
-        ang += 0.1;
-      };
-      
-      const throttledMouseMove = throttle((e) => {
-        const r = c.getBoundingClientRect();
-        const x = e.clientX - r.left;
-        const y = e.clientY - r.top;
-        
-        if (Math.random() > 0.7) {
-          addShape(x, y);
-        }
-      }, 50);
-      
-      c.addEventListener('mousemove', throttledMouseMove);
-      
-      let isMouseDown = false;
-      c.addEventListener('mousedown', () => {
-        isMouseDown = true;
-        document.documentElement.style.cursor = 'grabbing';
-      });
-      document.addEventListener('mouseup', () => {
-        isMouseDown = false;
-        document.documentElement.style.cursor = '';
-      });
-      
-      const draw = () => {
-        ctx.clearRect(0, 0, c.width, c.height);
-        
-        // Apply mouse down effect to all shapes
-        if (isMouseDown) {
-          shapes.forEach(s => {
-            s.vel.x += rand(-0.5, 0.5);
-            s.vel.y += rand(-0.5, 0.5);
-          });
-        }
-        
-        for (let i = shapes.length - 1; i >= 0; i--) {
-          const s = shapes[i];
-          ctx.beginPath();
-          ctx.fillStyle = `rgba(${s.col.r},${s.col.g},${s.col.b},${s.alpha})`;
-          ctx.arc(s.x, s.y, s.rad, 0, Math.PI * 2);
-          ctx.fill();
-          
-          s.x += s.vel.x;
-          s.y += s.vel.y;
-          s.alpha *= 0.98;
-          
-          // Boundary conditions
-          if (s.x < 0 || s.x > c.width) s.vel.x *= -0.8;
-          if (s.y < 0 || s.y > c.height) s.vel.y *= -0.8;
-          
-          if (s.alpha < 0.05) shapes.splice(i, 1);
-        }
-        
-        animationFrameId = requestAnimationFrame(draw);
-      };
-      
-      draw();
-    };
-    
-    // Resume loading with fallback
+    // Resume loader
     function loadResume() {
       const container = $('#resumeContainer');
-      if (container.innerHTML.includes('embed')) return;
-      
-      const embed = document.createElement('embed');
-      embed.id = 'resumeViewer';
-      embed.src = 'resume.pdf';
-      embed.type = 'application/pdf';
-      embed.setAttribute('aria-label', 'Resume PDF document');
-      
-      embed.onerror = () => {
-        container.innerHTML = `
-          <p class="muted" style="text-align:center;padding:40px;">
-            Unable to load resume. Please <a href="resume.pdf" download style="color:var(--accent)">download the PDF</a> instead.
-          </p>
-        `;
-      };
-      
-      // Replace loader with embed after a short delay for UX
+      if (container.querySelector('embed')) return;
+
+      container.innerHTML = '<div class="loader"></div><div class="pdf-loading">Loading resume...</div>';
+
       setTimeout(() => {
+        const embed = document.createElement('embed');
+        embed.id = 'resumeViewer';
+        embed.src = 'resume.pdf';
+        embed.type = 'application/pdf';
+        embed.style.width = '100%';
+        embed.style.height = '70vh';
+        embed.setAttribute('aria-label', 'Resume PDF document');
+
+        let loaded = false;
+        embed.onload = () => { loaded = true; };
+        embed.onerror = embed.onabort = () => {
+          if (!loaded) {
+            container.innerHTML = `
+              <p class="muted" style="text-align:center;padding:40px;">
+                Unable to load resume. Please <a href="resume.pdf" download style="color:var(--accent)">download the PDF</a>.
+              </p>
+            `;
+          }
+        };
+
         container.innerHTML = '';
         container.appendChild(embed);
       }, 500);
     }
-    
-    // Initialize components on tab activation
-    $('.tabs').addEventListener('click', e => {
-      const btn = e.target.closest('[role="tab"]');
-      if (btn) {
-        const id = btn.dataset.target;
-        if (id === 'panel-play' && !pgInit) {
-          initPG();
+
+    // KNFL Game
+    const rollBtn = $('#knfl-roll');
+    if (rollBtn) {
+      rollBtn.onclick = () => {
+        const dice = Array(5).fill().map(() => Math.floor(Math.random() * 6) + 1);
+        const diceEl = $('#knfl-dice');
+        diceEl.innerHTML = dice.map(n => 
+          `<div class="dice" role="img" aria-label="Die showing ${n}">${n}</div>`
+        ).join('');
+
+        const sorted = [...dice].sort();
+        const uniq = [...new Set(sorted)];
+        const knfl = sorted.every(x => x === sorted[0]);
+
+        let maxSeq = 1, curSeq = 1;
+        for (let i = 1; i < uniq.length; i++) {
+          if (uniq[i] === uniq[i-1] + 1) {
+            curSeq++;
+            maxSeq = Math.max(maxSeq, curSeq);
+          } else curSeq = 1;
         }
-        if (id === 'panel-resume') {
-          loadResume();
+        const bigStreet = maxSeq >= 5;
+        const lilStreet = maxSeq >= 4 && !bigStreet;
+
+        const counts = {};
+        sorted.forEach(x => counts[x] = (counts[x] || 0) + 1);
+        const freqs = Object.values(counts).sort((a,b) => b - a);
+        const fullHouse = freqs.length === 2 && freqs[0] === 3 && freqs[1] === 2;
+
+        let result, points;
+        if (knfl) { result = 'KNFL'; points = 500; }
+        else if (bigStreet) { result = 'Big street'; points = 40; }
+        else if (lilStreet) { result = "Lil' street"; points = 30; }
+        else if (fullHouse) { result = 'Fullhouse'; points = 25; }
+        else {
+          const bestVal = Object.keys(counts).reduce((a,b) => counts[a] > counts[b] ? a : b);
+          const bestCount = counts[bestVal];
+          points = bestVal * bestCount;
+          result = `Stack (${bestCount}) of ${bestVal}`;
         }
-        if (id === 'panel-pubs' && $('#pubs-accordion').children.length === 1) {
-          buildPubs();
-        }
-      }
-    });
+
+        $('#knfl-score').textContent = `${result} — ${points} pts`;
+        window.dataLayer.push({event: 'knfl_roll', result, points});
+      };
+    }
   </script>
 </body>
 </html>
