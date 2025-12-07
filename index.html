@@ -1,165 +1,476 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Dr. Shikhar Bhardwaj — Portfolio & Tools</title>
-<meta name="description" content="Dr. Shikhar Bhardwaj — AI/ML/GenAI CVs + KNFL game + Canvas playground (GitHub Pages)." />
-<style>
-  :root{
-    --bg:#f3f4f6; --card:#fff; --muted:#556; --accent:#8559a5; --accent-2:#00bdaa;
-    --mono: "Helvetica", "Arial", sans-serif;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:var(--mono);background:var(--bg);color:#111}
-  .container{max-width:1100px;margin:18px auto;padding:18px}
-  header{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-  .logo{font-size:2.4rem;font-weight:700;color:var(--accent);text-shadow:0 1px 0 var(--accent-2)}
-  .contact{margin-left:auto;text-align:right;font-size:0.95rem;color:var(--muted)}
-  nav.tabs{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-  .tab-btn{background:#fff;border:1px solid #ddd;padding:8px 12px;border-radius:8px;cursor:pointer}
-  .tab-btn[aria-selected="true"]{background:linear-gradient(180deg,#fff,#f7f7ff);box-shadow:0 6px 18px rgba(0,0,0,0.06);border-color:var(--accent)}
-  main.card{background:var(--card);padding:18px;border-radius:10px;margin-top:14px;min-height:320px;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
-  h1,h2{margin:0 0 8px 0}
-  h3{margin:6px 0}
-  .muted{color:var(--muted)}
-  .skills{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
-  .chip{padding:6px 8px;border-radius:6px;border:1px solid #e6e6e6;background:#fafafa;font-size:0.9rem}
-  .col-2{display:grid;grid-template-columns:1fr 320px;gap:18px}
-  @media (max-width:880px){.col-2{grid-template-columns:1fr}}
-  ul{margin:6px 0 12px 18px}
-  pre.note{background:#f7f9fc;border-left:4px solid var(--accent);padding:10px;border-radius:6px;color:#223}
-  /* KNFL styles (kept close to original but scoped) */
-  .knfl .playground{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .knfl .dice{border:1px solid #111;border-radius:4px;width:40px;height:40px;position:relative;background:#fff}
-  .knfl .rollaction{font-size:1rem;border:2px solid rgba(0,0,0,0.15);background:#a1dd70;color:rgba(0,0,0,0.6);font-weight:700;padding:8px 12px;border-radius:8px}
-  .scoreboard{margin-top:12px;font-weight:600}
-  /* playground canvas */
-  #gameCanvas{width:100%;height:60vh;display:block;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
-  footer{margin-top:18px;color:#666;font-size:0.9rem}
-  /* accessibility focus */
-  .tab-btn:focus{outline:3px solid rgba(133,89,165,0.25)}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dr. Shikhar Bhardwaj — Portfolio & CV</title>
+  <meta name="description" content="Dr. Shikhar Bhardwaj — AI, ML, GenAI CVs, KNFL game, and interactive playground." />
+  <!-- Tailwind-like minimal utility CSS (self-contained) -->
+  <style>
+    :root{
+      --bg:#0f1724; /* deep slate */
+      --panel:#0b1220;
+      --muted:#94a3b8;
+      --card:#071025;
+      --accent:#7c3aed; /* purple */
+      --accent-2:#06b6d4; /* teal */
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+      --maxwidth:1100px;
+      --mono: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    /* Reset-ish */
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:var(--mono);background:linear-gradient(180deg,#071123 0%, #071225 60%);color:#e6eef6}
+    a{color:var(--accent)}
+    .container{max-width:var(--maxwidth);margin:20px auto;padding:20px}
+    header{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+    .brand{font-weight:700;font-size:1.6rem;color:var(--accent);letter-spacing:0.2px}
+    .tagline{color:var(--muted);font-size:0.95rem}
+    .contact{margin-left:auto;text-align:right;color:var(--muted);font-size:0.9rem}
+    /* Tabs */
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+    .tab{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;color:var(--muted);cursor:pointer}
+    .tab[aria-selected="true"]{background:linear-gradient(180deg, rgba(124,58,237,0.12), rgba(6,182,212,0.06));color:#fff;box-shadow:0 6px 28px rgba(2,6,23,0.6);border-color:rgba(124,58,237,0.35)}
+    main.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));border-radius:var(--radius);padding:20px;margin-top:18px;box-shadow:0 8px 40px rgba(2,6,23,0.6)}
+    h1,h2,h3{margin:0 0 8px 0}
+    .muted{color:var(--muted)}
+    .grid-2{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    @media (max-width:920px){.grid-2{grid-template-columns:1fr}}
+    ul{margin:8px 0 12px 18px;color:#dbeafe}
+    .skills{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+    .chip{background:rgba(255,255,255,0.02);padding:6px 8px;border-radius:999px;border:1px solid rgba(255,255,255,0.02);font-size:0.85rem}
+    /* KNFL styles scoped */
+    .knfl .playground{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .knfl .dice{width:48px;height:48px;border-radius:8px;background:#fff;color:#111;display:inline-flex;align-items:center;justify-content:center;font-weight:700;border:2px solid rgba(0,0,0,0.06)}
+    .knfl .roll{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+    .knfl .score{margin-top:12px;color:#e2f0ff}
+    /* Accordion */
+    .accordion{margin-top:12px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+    .acc-item{border-bottom:1px solid rgba(255,255,255,0.02)}
+    .acc-h{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005))}
+    .acc-title{font-weight:600}
+    .acc-btn{background:none;border:none;color:var(--muted);font-weight:700;cursor:pointer}
+    .acc-panel{padding:12px 14px;background:transparent;color:#cfe8ff;display:none}
+    .acc-panel.show{display:block}
+    /* Canvas */
+    #gameCanvas{width:100%;height:60vh;border-radius:8px;border:1px solid rgba(255,255,255,0.02)}
+    footer{margin-top:14px;color:var(--muted);font-size:0.9rem}
+    /* focus */
+    .tab:focus,.acc-btn:focus,.knfl .roll:focus{outline:3px solid rgba(124,58,237,0.18);outline-offset:2px;border-radius:8px}
+  </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="app">
     <header>
-      <div class="logo">Dr. Shikhar Bhardwaj</div>
-      <div class="muted">PhD · AI / ML / GenAI Engineer · IoT & SDN Research</div>
+      <div>
+        <div class="brand">Dr. Shikhar Bhardwaj</div>
+        <div class="tagline">PhD · AI / ML / GenAI Engineer · IoT & SDN Research</div>
+      </div>
       <div class="contact">
         Noida, India<br/>
-        <a href="mailto:winshikhar@gmail.com">winshikhar@gmail.com</a> · +91-8168245136<br/>
+        <a href="mailto:winshikhar@gmail.com">winshikhar@gmail.com</a><br/>
         <a href="https://linkedin.com/in/b-shikhar/" target="_blank" rel="noopener">linkedin.com/in/b-shikhar</a>
       </div>
     </header>
 
     <!-- Tabs -->
-    <nav class="tabs" role="tablist" aria-label="Main tabs">
-      <button class="tab-btn" role="tab" aria-selected="true" data-target="tab-home" id="tab-home-btn">Home</button>
-      <button class="tab-btn" role="tab" aria-selected="false" data-target="tab-ai" id="tab-ai-btn">AI Engineer</button>
-      <button class="tab-btn" role="tab" aria-selected="false" data-target="tab-ml" id="tab-ml-btn">ML Engineer</button>
-      <button class="tab-btn" role="tab" aria-selected="false" data-target="tab-genai" id="tab-genai-btn">GenAI Engineer</button>
-      <button class="tab-btn" role="tab" aria-selected="false" data-target="tab-knfl" id="tab-knfl-btn">KNFL (Game)</button>
-      <button class="tab-btn" role="tab" aria-selected="false" data-target="tab-play" id="tab-play-btn">Playground</button>
-      <button class="tab-btn" role="tab" aria-selected="false" data-target="tab-download" id="tab-download-btn">Download</button>
+    <nav class="tabs" role="tablist" aria-label="Primary">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="panel-home" id="tab-home" data-target="panel-home" type="button">Home</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-ai" id="tab-ai" data-target="panel-ai" type="button">AI Engineer</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-ml" id="tab-ml" data-target="panel-ml" type="button">ML Engineer</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-genai" id="tab-genai" data-target="panel-genai" type="button">GenAI Engineer</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-knfl" id="tab-knfl" data-target="panel-knfl" type="button">KNFL (Game)</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-play" id="tab-play" data-target="panel-play" type="button">Playground</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-download" id="tab-download" data-target="panel-download" type="button">Download</button>
     </nav>
 
-    <main class="card" id="content">
-
-      <!-- HOME -->
-      <section id="tab-home" role="tabpanel">
-        <div class="col-2">
+    <main class="card" id="mainCard" tabindex="-1">
+      <!-- HOME PANEL -->
+      <section id="panel-home" role="tabpanel" aria-labelledby="tab-home">
+        <div class="grid-2">
           <div>
-            <h2>Professional Summary</h2>
-            <p class="muted">AI / ML engineer and researcher with 6+ years of experience across IoT, SDN, edge systems, and GenAI. Proven track record deploying on-prem LLM inference, building MLOps pipelines, and delivering production ML for constrained devices.</p>
+            <h2>Professional summary</h2>
+            <p class="muted">6+ years of AI/ML & IoT research and production engineering. On-prem GenAI deployments, MLOps, edge ML, SDN/IoT architectures, and academic publications.</p>
 
             <h3>Key achievements</h3>
             <ul>
-              <li>Built on-prem GenAI inference engine (vLLM, Flask) reducing LLM spend by ~50% and lowering latency by ~40%.</li>
-              <li>Deployed document RAG chatbots with prompt guardrails and vector DBs (ChromaDB / pgvector).</li>
-              <li>Published SCIE articles on SDN & IoT; designed energy-efficient secure MQTT solutions for constrained devices.</li>
+              <li>On-prem LLM inference engine (vLLM/Flask) — cut LLM expenses ~50% and reduced latency ~40%.</li>
+              <li>RAG document chatbots with guardrails and vector DB integration (ChromaDB/pgvector).</li>
+              <li>SCIE publications on consumer-centric CDN for IoT and verified privacy analyses.</li>
             </ul>
 
-            <h3>Core skills</h3>
+            <h3>Skills</h3>
             <div class="skills">
-              <span class="chip">Python</span>
-              <span class="chip">TensorFlow</span>
-              <span class="chip">PyTorch</span>
-              <span class="chip">Docker</span>
-              <span class="chip">Kubernetes</span>
-              <span class="chip">vLLM / ollama</span>
-              <span class="chip">Whisper</span>
-              <span class="chip">Neo4j</span>
-              <span class="chip">MQTT</span>
+              <span class="chip">Python</span><span class="chip">TensorFlow</span><span class="chip">PyTorch</span>
+              <span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">vLLM</span>
+              <span class="chip">Whisper</span><span class="chip">Neo4j</span><span class="chip">MQTT</span>
             </div>
           </div>
 
-          <aside style="padding:12px;background:#fbfbff;border-radius:8px">
-            <h3>Quick links</h3>
-            <p class="muted">Push this repo to <code>yourusername.github.io</code> to publish. Use the Download tab for Word/PDF options.</p>
-            <div style="margin-top:8px">
-              <button class="tab-btn" data-target="tab-ai" onclick="activateTabById('tab-ai-btn')">View AI CV</button>
+          <aside style="padding:12px;background:rgba(255,255,255,0.01);border-radius:10px">
+            <h3 class="muted">Quick actions</h3>
+            <p class="muted">Use the tabs to switch CV variants or open the KNFL game and playground. Use Download tab to export documents.</p>
+            <div style="margin-top:12px">
+              <button class="tab" data-target="panel-ai" type="button" onclick="activateTabById('tab-ai')">Open AI CV</button>
             </div>
           </aside>
         </div>
       </section>
 
-      <!-- AI ENGINEER -->
-      <section id="tab-ai" role="tabpanel" hidden>
+      <!-- AI PANEL -->
+      <section id="panel-ai" role="tabpanel" aria-labelledby="tab-ai" hidden>
         <h2>AI Engineer — ATS-optimised</h2>
-        <p class="muted">Role focus: production ML systems, model deployment, MLOps, and edge/IoT integration.</p>
+        <p class="muted">Focus: production ML systems, inference engineering, MLOps, and edge integration.</p>
 
-        <h3>Professional Experience (selected)</h3>
+        <h3>Experience (selected)</h3>
         <h4>Deputy Manager, Advanced Technology Group — DS Group (Jan 2024 — Present)</h4>
         <ul>
-          <li>Built and deployed an on-prem LLM inference engine (vLLM, Flask, Docker) for sales & finance—reduced third-party LLM costs by 50% and improved inference latency by ~40%.</li>
-          <li>Delivered document-based chatbot with RAG (ChromaDB / pgvector), OpenAI streaming APIs, and containerized prompt guardrails to mitigate injection attacks.</li>
-          <li>Integrated Whisper for real-time STT/TTS and Neo4j for complex relationship queries; packaged PoC using Gradio.</li>
+          <li>Built on-prem LLM inference engine (vLLM, Flask, Docker) for sales & finance — reduced third-party LLM costs by 50% and improved inference latency by ~40%.</li>
+          <li>Document chatbot with RAG (ChromaDB/pgvector), OpenAI streaming APIs, and containerised prompt-guardrails.</li>
+          <li>Integrated Whisper for STT/TTS and Neo4j for relationship queries; packaged PoC using Gradio.</li>
         </ul>
 
-        <h3>Selected Publications</h3>
-        <ul>
-          <li>Formal Verification of Privacy... — Transactions on Emerging Telecommunications Technologies (2025)</li>
-          <li>Towards a software-defined networking model for consumer-centric content delivery for IoT — TETT (2023)</li>
-        </ul>
-
-        <h3>Education & Certifications</h3>
-        <ul>
-          <li>Ph.D., Computer Science & Engineering — Punjab Engineering College, Chandigarh</li>
-          <li>Intro to TensorFlow (Google/Coursera) · Architecting with GKE (Qwiklabs)</li>
-        </ul>
+        <h3>Selected publications</h3>
+        <div class="accordion" id="pubs-accordion">
+          <!-- Publications inserted by JS -->
+        </div>
       </section>
 
-      <!-- ML ENGINEER -->
-      <section id="tab-ml" role="tabpanel" hidden>
+      <!-- ML PANEL -->
+      <section id="panel-ml" role="tabpanel" aria-labelledby="tab-ml" hidden>
         <h2>ML Engineer — ATS-optimised</h2>
-        <p class="muted">Role focus: model dev, evaluation, deployment, MLOps and edge ML.</p>
+        <p class="muted">Focus: model development, evaluation, deployment, MLOps and edge ML.</p>
 
         <h3>Highlights</h3>
         <ul>
-          <li>Optimised ML inference pipelines; applied quantization and pruning to reduce memory & latency up to 50% on edge devices.</li>
-          <li>Implemented CI/CD pipelines for model training & deployment with Docker and Jenkins, reducing release cycle time.</li>
-          <li>Deployed transfer-learning models on Raspberry Pi and NVIDIA Jetson for real-time inference.</li>
+          <li>Optimised inference pipelines with quantization/pruning to reduce memory & latency up to 50% for edge deployments.</li>
+          <li>Implemented CI/CD for model lifecycles (Docker, Jenkins), reducing release time.</li>
+          <li>Deployed transfer learning and ensemble models on Raspberry Pi / Jetson for real-time inference.</li>
         </ul>
 
-        <h3>Selected Project</h3>
-        <p class="muted">Stacking Ensemble-based Web Page Classification (IEEE CCICT 2021) — implemented stacking ensemble and automated Mininet builds for reproducible experiments.</p>
+        <h3>Selected publications</h3>
+        <div class="accordion" id="pubs-accordion-ml">
+          <!-- same list -->
+        </div>
       </section>
 
-      <!-- GENAI ENGINEER -->
-      <section id="tab-genai" role="tabpanel" hidden>
+      <!-- GENAI PANEL -->
+      <section id="panel-genai" role="tabpanel" aria-labelledby="tab-genai" hidden>
         <h2>GenAI Engineer — ATS-optimised</h2>
-        <p class="muted">Role focus: LLM infra, RAG systems, inference engineering, prompt safety and agentic workflows.</p>
+        <p class="muted">Focus: LLM infra, RAG systems, on-prem inference, prompt safety and agentic workflows.</p>
 
-        <h3>Key Work</h3>
+        <h3>Selected work</h3>
         <ul>
-          <li>Built hybrid rule+LLM inference architecture (vLLM, ollama) routing between local models and streaming OpenAI to cut costs by ~50%.</li>
-          <li>Designed RAG pipelines with ChromaDB / pgvector and implemented containerised guardrails to prevent prompt injection/jailbreaks.</li>
-          <li>Integrated Whisper to enable real-time voice-driven interfaces (STT/TTS).</li>
+          <li>Hybrid rule + LLM inference architecture (vLLM / ollama) that routes between local models and streaming OpenAI to cut costs by ~50%.</li>
+          <li>RAG with ChromaDB/pgvector and containerised guardrails to protect against injection/jailbreaks.</li>
+          <li>Real-time voice interfaces with Whisper STT/TTS.</li>
         </ul>
+
+        <h3>Selected publications</h3>
+        <div class="accordion" id="pubs-accordion-genai">
+          <!-- same list -->
+        </div>
       </section>
 
-      <!-- KNFL Game -->
-      <section id="tab-knfl" class="knfl" role="tabpanel" hidden>
-        <h2>KNFL — 5 Dice Game</h2>
-        <p class="muted">Roll five dice — special hands: KNFL, little/big street, fullhouse, or st
+      <!-- KNFL GAME PANEL -->
+      <section id="panel-knfl" role="tabpanel" aria-labelledby="tab-knfl" hidden>
+        <h2>KNFL — Dice Game</h2>
+        <p class="muted">Roll five dice. Special hands: KNFL (all same), little/big street (4/5 consecutive), fullhouse, or stacks.</p>
+
+        <div class="knfl">
+          <div class="playground" id="knfl-dice" aria-live="polite"></div>
+          <div style="margin-top:12px">
+            <button class="knfl roll" id="knfl-roll" type="button">Roll</button>
+            <div class="score" id="knfl-score" aria-atomic="true"></div>
+          </div>
+          <div style="margin-top:12px;color:var(--muted);font-size:0.9rem">Tip: KNFL yields 500 pts — it is rare but accumulates across plays.</div>
+        </div>
+      </section>
+
+      <!-- PLAYGROUND PANEL -->
+      <section id="panel-play" role="tabpanel" aria-labelledby="tab-play" hidden>
+        <h2>Interactive Playground</h2>
+        <p class="muted">Move the mouse to create animated shapes. Click and hold to alter dynamics.</p>
+        <canvas id="gameCanvas" aria-label="interactive canvas playground"></canvas>
+        <div id="instructionPrompt" style="display:none;margin-top:10px;color:var(--muted)">Move your mouse to spawn shapes. Click & hold to change behaviour.</div>
+      </section>
+
+      <!-- DOWNLOAD PANEL -->
+      <section id="panel-download" role="tabpanel" aria-labelledby="tab-download" hidden>
+        <h2>Download & Publish</h2>
+        <p class="muted">To publish: push this `index.html` to a repo named <code>yourusername.github.io</code>. I can also create downloadable PDF/Word versions—tell me which roles to prioritise.</p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="muted">Content derived from your CV. Full publications list included. :contentReference[oaicite:2]{index=2}</div>
+    </footer>
+  </div>
+
+  <!-- Script: tabs, accordion, knfl, lazy playground init -->
+  <script>
+  (function(){
+    /* UTILS */
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+    /* Tabs: robust, defensive */
+    const tabs = $$('[role="tab"]');
+    const panels = $$('[role="tabpanel"]');
+
+    function activateTabButton(tabBtn){
+      if(!tabBtn) return;
+      // deselect all
+      tabs.forEach(t => t.setAttribute('aria-selected','false'));
+      panels.forEach(p => p.hidden = true);
+      // select
+      tabBtn.setAttribute('aria-selected','true');
+      const targetId = tabBtn.getAttribute('data-target') || tabBtn.getAttribute('aria-controls');
+      const panel = targetId ? document.getElementById(targetId) : null;
+      if(panel){
+        panel.hidden = false;
+        // move keyboard focus to panel for screenreaders
+        panel.focus();
+      } else {
+        console.warn('Tab target not found:', targetId, tabBtn);
+      }
+    }
+
+    // Event delegation (handles click and keyboard)
+    const tablist = document.querySelector('.tabs');
+    if(tablist){
+      tablist.addEventListener('click', (ev) => {
+        const btn = ev.target.closest('[role="tab"]');
+        if(btn) activateTabButton(btn);
+      });
+
+      tablist.addEventListener('keydown', (ev) => {
+        const btn = ev.target.closest('[role="tab"]');
+        if(!btn) return;
+        let idx = tabs.indexOf(btn);
+        if(ev.key === 'ArrowRight'){ idx = (idx + 1) % tabs.length; tabs[idx].focus(); ev.preventDefault(); }
+        if(ev.key === 'ArrowLeft'){ idx = (idx - 1 + tabs.length) % tabs.length; tabs[idx].focus(); ev.preventDefault(); }
+        if(ev.key === 'Home'){ tabs[0].focus(); ev.preventDefault(); }
+        if(ev.key === 'End'){ tabs[tabs.length-1].focus(); ev.preventDefault(); }
+        if(ev.key === 'Enter' || ev.key === ' '){ activateTabButton(btn); ev.preventDefault(); }
+      });
+    }
+
+    // Allow programmatic activation (used by quick buttons)
+    window.activateTabById = function(tabId){
+      const b = document.getElementById(tabId);
+      if(b) activateTabButton(b);
+    };
+
+    // Start with Home active (defensive)
+    const initial = document.querySelector('[role="tab"][aria-selected="true"]') || tabs[0];
+    activateTabButton(initial);
+
+    /* ACCORDION: publications (accessible) */
+    // Publications (full list copied from uploaded CV). Each item should include short meta.
+    const publications = [
+      {
+        title: "There is Mathematics for That! : A Formal Verification of Privacy and Simulative Analysis of Consumer-Centric Content Delivery in IoT",
+        authors: "Shikhar Bhardwaj, Sandeep Harit, Shilpa",
+        year: 2025,
+        venue: "Transactions on Emerging Telecommunications Technologies (SCIE)",
+        url: "https://onlinelibrary.wiley.com/doi/10.1002/ett.70059"
+      },
+      {
+        title: "Towards a software-defined networking model for consumer-centric content delivery network for IoT",
+        authors: "Shikhar Bhardwaj, Sandeep Harit, Anil Yadav",
+        year: 2023,
+        venue: "Transactions on Emerging Telecommunications Technologies (SCIE)",
+        url: "https://onlinelibrary.wiley.com/doi/abs/10.1002/ett.4903"
+      },
+      {
+        title: "Message Queuing Telemetry Transport - Secure Connection: A Power-efficient Secure Communication",
+        authors: "Shikhar Bhardwaj, Sandeep Harit, Shilpa, Darpan Anand",
+        year: 2023,
+        venue: "International Journal of Sensor Networks (IJSN SCIE)",
+        url: "https://doi.org/10.1504/IJSNET.2023.131246"
+      },
+      {
+        title: "SDN-Enabled Secure IoT Architecture Development: A Review",
+        authors: "Bhardwaj S., Harit S.",
+        year: 2022,
+        venue: "Inventive Communication and Computational Technologies (ICICCT). Lecture Notes in Networks and Systems, vol 311. Springer",
+        url: "https://doi.org/10.1007/978-981-16-5529-6_47"
+      },
+      {
+        title: "Traceability of Unwitting Disclosure Using Explainable Correlation in Procurement and Supply Chain",
+        authors: "Gunjal, H.V.; Ingale, V.; Bhardwaj, S.; Belokar, R.M.",
+        year: 2023,
+        venue: "Applications of Emerging Technologies and AI/ML Algorithms. ICDAPS 2022. Asset Analytics. Springer",
+        url: "https://doi.org/10.1007/978-981-99-1019-9_35"
+      },
+      {
+        title: "Stacking Ensemble-based Automatic Web Page Classification",
+        authors: "D. Deeksha, R. Bhatia, S. Bhardwaj, M. Kumar, K. Bhatia and S. S. Gill",
+        year: 2021,
+        venue: "Fourth International Conference on Computational Intelligence and Communication Technologies (CCICT), IEEE",
+        url: "https://doi.org/10.1109/CCICT53244.2021.00042"
+      }
+    ];
+
+    function buildPublicationsAccordion(containerId){
+      const wrapper = document.getElementById(containerId);
+      if(!wrapper) return;
+      wrapper.innerHTML = ''; // clear
+
+      publications.forEach((p, idx) => {
+        const item = document.createElement('div');
+        item.className = 'acc-item';
+        const header = document.createElement('div');
+        header.className = 'acc-h';
+        const title = document.createElement('div');
+        title.className = 'acc-title';
+        title.textContent = `${p.authors} — ${p.title} (${p.year})`;
+        const btn = document.createElement('button');
+        btn.className = 'acc-btn';
+        btn.setAttribute('aria-expanded','false');
+        btn.setAttribute('aria-controls', `acc-panel-${idx}`);
+        btn.type = 'button';
+        btn.textContent = '+';
+        // panel
+        const panel = document.createElement('div');
+        panel.className = 'acc-panel';
+        panel.id = `acc-panel-${idx}`;
+        panel.setAttribute('role','region');
+        panel.setAttribute('aria-hidden','true');
+        panel.innerHTML = `<div><strong>Venue:</strong> ${p.venue}</div><div style="margin-top:6px"><a href="${p.url}" target="_blank" rel="noopener">View publication</a></div>`;
+
+        // toggle
+        btn.addEventListener('click', () => {
+          const expanded = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!expanded));
+          panel.classList.toggle('show', !expanded);
+          panel.setAttribute('aria-hidden', String(expanded));
+          btn.textContent = expanded ? '+' : '–';
+        });
+
+        header.appendChild(title);
+        header.appendChild(btn);
+        item.appendChild(header);
+        item.appendChild(panel);
+        wrapper.appendChild(item);
+      });
+    }
+
+    // build accordions for each panel that needs publications
+    ['pubs-accordion','pubs-accordion-ml','pubs-accordion-genai'].forEach(buildPublicationsAccordion);
+
+    /* KNFL game (robust) */
+    (function initKnfl(){
+      const roll = document.getElementById('knfl-roll');
+      const diceHolder = document.getElementById('knfl-dice');
+      const scoreBox = document.getElementById('knfl-score');
+      if(!roll || !diceHolder || !scoreBox) return;
+
+      let totalPlays = 0, totalHighWins = 0, totalPoints = 0;
+
+      function renderDice(arr){
+        diceHolder.innerHTML = '';
+        arr.forEach(n => {
+          const d = document.createElement('div');
+          d.className = 'dice';
+          d.textContent = n;
+          diceHolder.appendChild(d);
+        });
+      }
+
+      function evaluate(arr){
+        arr.sort((a,b)=>a-b);
+        let prev = null, isKNFL=true, streetCount=1, isLil=false, isBig=false;
+        const cnt = {1:0,2:0,3:0,4:0,5:0,6:0};
+        arr.forEach(x=>{
+          cnt[x]++; if(prev !== null){
+            if(prev !== x){ isKNFL=false; if((x - 1) !== prev) streetCount = 1; else { streetCount++; if(streetCount===4) isLil=true; if(streetCount>4) isBig=true; } }
+          } prev = x;
+        });
+        let fullhouseCount=0, target=null, targetPoints=0;
+        for(let k=1;k<=6;k++){ if(cnt[k]>=2) fullhouseCount += cnt[k]; if(k*cnt[k] > targetPoints){ target=k; targetPoints=k*cnt[k]; } }
+        let winText='-', winPoints=0;
+        if(isKNFL){ winText='KNFL'; winPoints=500; totalHighWins++; }
+        else if(isBig||isLil){ winText = isBig ? 'Big street' : "Lil' street"; winPoints = isBig ? 40 : 30; }
+        else if(fullhouseCount === 5){ winText='Fullhouse'; winPoints=25; }
+        else { winText = `Stack (${cnt[target]}) of ${target}`; winPoints = targetPoints; }
+        totalPoints += winPoints;
+        totalPlays++;
+        const pct = Math.ceil(100 / totalPlays * totalHighWins) + '%';
+        return {winText,winPoints,totalPoints,totalPlays,pct};
+      }
+
+      roll.addEventListener('click', ()=>{
+        const arr = Array.from({length:5},()=>Math.floor(Math.random()*6)+1);
+        renderDice(arr);
+        const res = evaluate(arr);
+        scoreBox.innerHTML = `Current: ${res.winText} (${res.winPoints} pts) — Total: ${res.totalPoints} pts | Plays: ${res.totalPlays} | KNFL %: ${res.pct}`;
+      });
+    })();
+
+    /* Playground canvas lazy init */
+    let playgroundInitialized = false;
+    function initPlayground(){
+      if(playgroundInitialized) return;
+      playgroundInitialized = true;
+      // code adapted from the previous playground: simpler and robust
+      const canvas = document.getElementById('gameCanvas');
+      const prompt = document.getElementById('instructionPrompt');
+      if(!canvas) return;
+      // size & retina-aware
+      function fitCanvas(){
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = Math.floor(canvas.clientWidth * dpr);
+        canvas.height = Math.floor(window.innerHeight * 0.6 * dpr);
+        canvas.style.height = (window.innerHeight * 0.6) + 'px';
+        const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+        return ctx;
+      }
+      let ctx = fitCanvas();
+      window.addEventListener('resize', ()=> { ctx = fitCanvas(); });
+
+      // lightweight shape system
+      let shapes = [], mouseDown=false, mouseX=-1, mouseY=-1, colourAngle=0;
+      function rand(min,max){return min + Math.random()*(max-min);}
+      function createShape(x,y){
+        const s = {x,y,rad:rand(8,40),n:Math.floor(rand(3,10)),ang:rand(0,Math.PI*2),vel:{x:rand(-3,3),y:rand(-2,6)},col:{r:Math.floor(128+100*Math.sin(colourAngle)), g:Math.floor(128+100*Math.cos(colourAngle)), b:Math.floor(128-100*Math.sin(colourAngle))},alpha:1};
+        colourAngle += 0.08; shapes.push(s);
+      }
+      function draw(){
+        ctx.clearRect(0,0,canvas.clientWidth,canvas.clientHeight);
+        shapes.forEach((s,i)=>{
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(${s.col.r},${s.col.g},${s.col.b},${s.alpha})`;
+          ctx.arc(s.x, s.y, s.rad, 0, Math.PI*2);
+          ctx.fill();
+          s.x += s.vel.x; s.y += s.vel.y; s.alpha *= 0.995;
+          if(s.alpha < 0.02) shapes.splice(i,1);
+        });
+        requestAnimationFrame(draw);
+      }
+      canvas.addEventListener('mousemove', (e)=> {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left; mouseY = e.clientY - rect.top;
+        if(Math.random() > 0.6) createShape(mouseX, mouseY);
+      });
+      canvas.addEventListener('mousedown', ()=> { mouseDown = true; });
+      document.addEventListener('mouseup', ()=> { mouseDown = false; });
+      prompt.style.display = 'block';
+      setTimeout(()=> prompt.style.opacity = '1', 60);
+      draw();
+    }
+
+    // Initialize playground only when tab opened; also when user uses keyboard to activate
+    document.getElementById('tab-play').addEventListener('click', ()=> initPlayground());
+    document.getElementById('tab-play').addEventListener('keydown', (e)=> { if(e.key === 'Enter') initPlayground(); });
+
+    // Defensive: also init if panel already active on load
+    if(!document.getElementById('panel-play').hidden) initPlayground();
+
+  })();
+  </script>
+</body>
+</html>
