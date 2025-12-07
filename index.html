@@ -5,18 +5,23 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dr. Shikhar Bhardwaj — AI/ML/GenAI Engineer & Researcher</title>
   <meta name="description" content="PhD researcher and engineer specializing in on-prem GenAI, RAG, edge ML, IoT/SDN, and secure AI systems." />
-  <!-- Print stylesheet -->
+  <!-- Print stylesheet for PDF export -->
   <style media="print">
-    * { -webkit-print-color-adjust: exact !important; color-adjust: exact !important; box-shadow: none !important; }
+    * { -webkit-print-color-adjust: exact !important; color-adjust: exact !important; box-shadow: none !important; text-shadow: none !important; }
     body { background: white !important; color: black !important; }
-    .card, .container, header, .tab, .chip, canvas { background: white !important; border: 1px solid #ccc !important; color: black !important; }
-    .muted, ul, .chip { color: #555 !important; }
+    .card, .container, header, .tab, .chip, canvas {
+      background: white !important;
+      border: 1px solid #ccc !important;
+      color: black !important;
+    }
+    .muted, ul, .chip, .inline-contact { color: #555 !important; }
     a { color: #007bff !important; text-decoration: underline !important; }
     canvas, .knfl .playground, .knfl .roll, .knfl .score { display: none !important; }
     .tabs { display: none; }
     [role="tabpanel"] { display: block !important; }
-    #panel-home, #panel-ai, #panel-ml, #panel-genai, #panel-pubs, #panel-knfl, #panel-play { display: block !important; page-break-after: always; }
+    section { page-break-after: always; }
   </style>
+  <!-- Main styles -->
   <style id="themeStyles">
     :root {
       --bg: #0f1724;
@@ -39,10 +44,9 @@
       --glass: rgba(0,0,0,0.03);
       color-scheme: light;
     }
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       height: 100%;
-      margin: 0;
       font-family: var(--mono);
       background: linear-gradient(180deg, var(--bg) 0%, var(--panel) 60%);
       color: var(--text-color, #e6eef6);
@@ -57,9 +61,10 @@
     header {
       display: flex;
       gap: 20px;
-      align-items: center;
+      align-items: flex-start;
       flex-wrap: wrap;
       position: relative;
+      margin-bottom: 12px;
     }
     .brand {
       font-weight: 700;
@@ -67,13 +72,30 @@
       color: var(--accent);
       letter-spacing: 0.2px;
     }
-    .tagline { color: var(--muted); font-size: 0.95rem; }
-    .contact {
-      margin-left: auto;
-      text-align: right;
-      color: var(--muted);
+    .tagline { color: var(--muted); font-size: 0.95rem; margin-top: 4px; }
+    /* Inline contact below tagline */
+    .inline-contact {
       font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
     }
+    .inline-contact span, .inline-contact a {
+      white-space: nowrap;
+    }
+    .inline-contact a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .inline-contact a:hover {
+      color: var(--accent);
+    }
+    [data-theme="light"] .inline-contact a { color: #64748b; }
+    [data-theme="light"] .inline-contact a:hover { color: var(--accent); }
+
     .theme-toggle {
       position: absolute;
       top: 0;
@@ -95,11 +117,13 @@
       background: rgba(0,0,0,0.03);
       border-color: rgba(0,0,0,0.1);
     }
+
     .tabs {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-top: 18px;
+      margin-top: 10px;
+      margin-bottom: 12px;
     }
     .tab {
       background: var(--glass);
@@ -109,6 +133,7 @@
       color: var(--muted);
       cursor: pointer;
       white-space: nowrap;
+      font-size: 0.92rem;
     }
     [data-theme="light"] .tab {
       background: rgba(0,0,0,0.02);
@@ -127,11 +152,11 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       border-color: rgba(124,58,237,0.4);
     }
+
     main.card {
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
       border-radius: var(--radius);
       padding: 20px;
-      margin-top: 18px;
       box-shadow: 0 8px 40px rgba(2,6,23,0.6);
     }
     [data-theme="light"] main.card {
@@ -139,13 +164,17 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       color: #1e293b;
     }
+
     h1, h2, h3 {
-      margin: 0 0 8px 0;
+      margin: 0 0 10px 0;
       color: var(--text-color, #e6eef6);
     }
-    [data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3 {
+    [data-theme="light"] h1,
+    [data-theme="light"] h2,
+    [data-theme="light"] h3 {
       color: #0f172a;
     }
+
     .muted { color: var(--muted); }
     .grid-2 {
       display: grid;
@@ -155,11 +184,15 @@
     @media (max-width: var(--bp-md)) {
       .grid-2 { grid-template-columns: 1fr; }
     }
+
     ul {
-      margin: 8px 0 12px 18px;
+      margin: 8px 0 14px 20px;
+      padding-left: 4px;
       color: #dbeafe;
     }
     [data-theme="light"] ul { color: #475569; }
+    li { margin-bottom: 6px; line-height: 1.4; }
+
     .skills {
       display: flex;
       flex-wrap: wrap;
@@ -178,6 +211,7 @@
       border-color: rgba(0,0,0,0.05);
       color: #475569;
     }
+
     .knfl .playground {
       display: flex;
       gap: 8px;
@@ -210,6 +244,7 @@
       color: #e2f0ff;
     }
     [data-theme="light"] .knfl .score { color: #1e293b; }
+
     .accordion {
       margin-top: 12px;
       border-radius: 8px;
@@ -231,7 +266,7 @@
     [data-theme="light"] .acc-h {
       background: linear-gradient(180deg, rgba(0,0,0,0.01), rgba(0,0,0,0.005));
     }
-    .acc-title { font-weight: 600; }
+    .acc-title { font-weight: 600; font-size: 0.95rem; }
     .acc-btn {
       background: none;
       border: none;
@@ -244,6 +279,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .acc-panel {
       padding: 12px 14px;
       background: transparent;
@@ -252,6 +288,7 @@
     }
     [data-theme="light"] .acc-panel { color: #475569; }
     .acc-panel.show { display: block; }
+
     #gameCanvas {
       width: 100%;
       height: 60vh;
@@ -261,11 +298,8 @@
     [data-theme="light"] #gameCanvas {
       border-color: rgba(0,0,0,0.1);
     }
-    footer {
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
+
+    /* Focus styles */
     .tab:focus,
     .acc-btn:focus,
     .knfl .roll:focus {
@@ -281,12 +315,12 @@
       <div>
         <div class="brand">Dr. Shikhar Bhardwaj</div>
         <div class="tagline">PhD · AI/ML/GenAI Engineer · IoT & SDN Researcher</div>
-      </div>
-      <div class="contact">
-        Noida, India (IST)<br/>
-        <a href="mailto:winshikhar@gmail.com">winshikhar@gmail.com</a><br/>
-        <a href="https://linkedin.com/in/b-shikhar/" target="_blank" rel="noopener noreferrer">linkedin.com/in/b-shikhar</a><br/>
-        <a href="https://github.com/winshikhar" target="_blank" rel="noopener noreferrer">github.com/winshikhar</a>
+        <div class="inline-contact">
+          <span>Noida, India (IST)</span> •
+          <a href="mailto:winshikhar@gmail.com">winshikhar@gmail.com</a> •
+          <a href="https://linkedin.com/in/b-shikhar/" target="_blank" rel="noopener noreferrer">linkedin.com/in/b-shikhar</a> •
+          <a href="https://github.com/winshikhar" target="_blank" rel="noopener noreferrer">github.com/winshikhar</a>
+        </div>
       </div>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">🌓</button>
     </header>
@@ -311,73 +345,97 @@
 
             <h3>Key Achievements</h3>
             <ul>
-              <li>Built on-prem LLM inference engine (vLLM/Flask) — <strong>50% cost reduction</strong>, <strong>40% lower latency</strong>.</li>
-              <li>Deployed RAG chatbots with ChromaDB/pgvector + containerized guardrails against prompt injection.</li>
+              <li>Built on-prem LLM inference engine (vLLM/Flask) — <strong>50% reduction in third-party LLM costs</strong>, <strong>40% lower inference latency</strong>.</li>
+              <li>Deployed RAG chatbots with ChromaDB/pgvector + containerized guardrails against prompt injection and jailbreaking.</li>
               <li>Published 6+ SCIE papers on IoT/SDN security and consumer-centric content delivery.</li>
-              <li>Optimized network bandwidth by <strong>66.67%</strong> via event-based data transfer in surveillance systems.</li>
+              <li>Optimized surveillance bandwidth by <strong>66.67%</strong> via event-based ONVIF data transfer.</li>
+              <li>Built cardamom segregator with ML + Modbus — <strong>70–90% reduction in human intervention</strong>.</li>
             </ul>
 
             <h3>Technical Skills</h3>
             <div class="skills">
-              <span class="chip">Python</span><span class="chip">TensorFlow</span><span class="chip">PyTorch</span>
-              <span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">vLLM</span>
-              <span class="chip">Whisper</span><span class="chip">Neo4j</span><span class="chip">MQTT</span>
-              <span class="chip">ChromaDB</span><span class="chip">pgvector</span><span class="chip">Gradio</span>
-              <span class="chip">Flask</span><span class="chip">n8n</span><span class="chip">ONVIF</span>
-              <span class="chip">Modbus</span><span class="chip">Raspberry Pi</span><span class="chip">Jetson</span>
+              <span class="chip">Python</span>
+              <span class="chip">TensorFlow</span>
+              <span class="chip">PyTorch</span>
+              <span class="chip">vLLM</span>
+              <span class="chip">Whisper</span>
+              <span class="chip">Docker</span>
+              <span class="chip">Kubernetes</span>
+              <span class="chip">Neo4j</span>
+              <span class="chip">ChromaDB</span>
+              <span class="chip">pgvector</span>
+              <span class="chip">Gradio</span>
+              <span class="chip">Flask</span>
+              <span class="chip">n8n</span>
+              <span class="chip">MQTT</span>
+              <span class="chip">ONVIF</span>
+              <span class="chip">Modbus</span>
+              <span class="chip">Raspberry Pi</span>
+              <span class="chip">Jetson</span>
+              <span class="chip">Proxmox</span>
+              <span class="chip">Git</span>
+              <span class="chip">Linux</span>
             </div>
           </div>
 
           <aside style="padding:12px;background:var(--glass);border-radius:10px">
             <h3 class="muted">Highlights</h3>
-            <p class="muted">• PhD (Computer Science), PEC Chandigarh<br/>• GATE-2015 Qualified<br/>• Teaching & mentoring experience<br/>• 6+ SCIE publications</p>
+            <p class="muted">
+              • PhD (Computer Science), PEC Chandigarh<br/>
+              • GATE-2015 Qualified<br/>
+              • Teaching & mentoring experience<br/>
+              • 6+ SCIE publications<br/>
+              • Edge AI on Jetson/RPi<br/>
+              • On-prem GenAI specialist
+            </p>
           </aside>
         </div>
       </section>
 
       <!-- AI ENGINEER -->
       <section id="panel-ai" role="tabpanel" aria-labelledby="tab-ai" hidden tabindex="0">
-        <h2>AI Engineer — Production Focus</h2>
-        <p class="muted">Systems engineering for AI: deployment, MLOps, edge integration, and cost optimization.</p>
+        <h2>AI Engineer — Production Systems</h2>
+        <p class="muted">Focus: AI system engineering, deployment, MLOps, and cost-optimized inference.</p>
 
         <h3>Experience</h3>
         <h4>Deputy Manager, DS Group (Jan 2024 – Present)</h4>
         <ul>
-          <li>Built hybrid rule + LLM inference engine (vLLM/Flask) — <strong>50% reduction in third-party LLM costs</strong>.</li>
+          <li>Built hybrid rule + LLM inference engine (vLLM/Flask) — <strong>50% cost reduction</strong> vs third-party APIs.</li>
           <li>Integrated Whisper STT/TTS and Neo4j for voice-driven, relationship-aware AI assistants.</li>
           <li>Deployed n8n agentic workflows for localized inference, cutting latency by ~40%.</li>
+          <li>Implemented containerized prompt guardrails to prevent injection, jailbreaking, and data leakage.</li>
         </ul>
 
         <h4>Project Assistant, CSIR-CSIO (2018–2019)</h4>
         <ul>
-          <li>Deployed CI/CD pipelines for ML models on resource-constrained devices (Raspberry Pi, Jetson).</li>
+          <li>Deployed CI/CD pipelines for ML models on Raspberry Pi and Jetson.</li>
           <li>Configured Proxmox with PCIe passthrough for hardware-accelerated ML workloads.</li>
-          <li>Used Docker + WebSockets for real-time system monitoring.</li>
+          <li>Used Docker + WebSockets for real-time system monitoring on constrained devices.</li>
         </ul>
       </section>
 
       <!-- ML ENGINEER -->
       <section id="panel-ml" role="tabpanel" aria-labelledby="tab-ml" hidden tabindex="0">
-        <h2>ML Engineer — Model & Edge Focus</h2>
-        <p class="muted">Model development, optimization, and edge deployment for real-world systems.</p>
+        <h2>ML Engineer — Edge & Embedded</h2>
+        <p class="muted">Focus: model development, optimization, and deployment on resource-constrained hardware.</p>
 
         <h3>Highlights</h3>
         <ul>
           <li>Reduced model memory/latency by 50% via quantization/pruning for edge devices.</li>
           <li>Built seismic signal classifier (human vs. vehicle) using transfer learning on Jetson.</li>
-          <li>Developed cardamom segregator ML system with Modbus integration — <strong>70–90% less human intervention</strong>.</li>
-          <li>Stacking ensemble for academic web page classification (Naive Bayes + SVM + RF).</li>
+          <li>Developed cardamom segregator with industrial Modbus integration — <strong>70–90% less human intervention</strong>.</li>
+          <li>Stacking ensemble (Naive Bayes + SVM + RF) for academic web page classification.</li>
         </ul>
       </section>
 
       <!-- GENAI ENGINEER -->
       <section id="panel-genai" role="tabpanel" aria-labelledby="tab-genai" hidden tabindex="0">
-        <h2>GenAI Engineer — On-Prem & Secure</h2>
-        <p class="muted">End-to-end GenAI systems: RAG, guardrails, voice interfaces, and cost-efficient inference.</p>
+        <h2>GenAI Engineer — Secure & On-Prem</h2>
+        <p class="muted">Focus: RAG, voice interfaces, guardrails, and cost-efficient LLM inference.</p>
 
         <h3>Selected Work</h3>
         <ul>
-          <li>On-prem RAG chatbot with ChromaDB/pgvector, OpenAI fallback, and Dockerized prompt guardrails.</li>
+          <li>On-prem RAG chatbot with ChromaDB/pgvector, OpenAI fallback, and Dockerized guardrails.</li>
           <li>Real-time voice AI: Whisper STT/TTS + Flask API + Gradio PoC.</li>
           <li>Bandwidth-optimized surveillance: ONVIF + event-based transfer → <strong>66.67% savings</strong>.</li>
         </ul>
@@ -412,7 +470,6 @@
         <div id="instructionPrompt" style="display:none;margin-top:10px;color:var(--muted)">Move your mouse to spawn shapes. Click & hold to change behaviour.</div>
       </section>
     </main>
-    <!-- No footer -->
   </div>
 
   <script>
@@ -420,7 +477,7 @@
     const $ = sel => document.querySelector(sel);
     const $$ = sel => Array.from(document.querySelectorAll(sel));
 
-    // Theme
+    // Theme toggle
     const themeToggle = $('#themeToggle');
     const root = document.documentElement;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -434,7 +491,7 @@
       themeToggle.textContent = theme === 'light' ? '🌙' : '🌓';
     });
 
-    // Tabs
+    // Tab navigation
     const tabs = $$('[role="tab"]');
     const panels = $$('[role="tabpanel"]');
     function activateTab(tabBtn){
@@ -489,7 +546,7 @@
     $('#tab-pubs').addEventListener('click', buildPubs);
     $('#tab-pubs').addEventListener('keydown', e => { if(e.key==='Enter') buildPubs(); });
 
-    // KNFL
+    // KNFL Game
     (function(){
       const roll = $('#knfl-roll'), dice = $('#knfl-dice'), score = $('#knfl-score');
       if(!roll) return;
