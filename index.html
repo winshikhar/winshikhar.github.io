@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dr. Shikhar Bhardwaj — Portfolio & CV</title>
-  <meta name="description" content="Dr. Shikhar Bhardwaj — AI, ML, GenAI CVs, KNFL game, and interactive playground." />
+  <meta name="description" content="Dr. Shikhar Bhardwaj — AI, ML, GenAI Engineer, IoT & SDN Research, Publications, and interactive projects." />
   <!-- Print stylesheet -->
   <style media="print">
     * { 
@@ -31,18 +31,18 @@
     }
     .tabs { display: none; }
     [role="tabpanel"] { display: block !important; }
-    #panel-home, #panel-ai, #panel-ml, #panel-genai { display: block !important; page-break-after: always; }
+    #panel-home, #panel-ai, #panel-ml, #panel-genai, #panel-pubs { display: block !important; page-break-after: always; }
     .contact a { word-break: break-all; }
   </style>
   <!-- Tailwind-like minimal utility CSS (self-contained) -->
   <style id="themeStyles">
     :root {
-      --bg: #0f1724; /* deep slate */
+      --bg: #0f1724;
       --panel: #0b1220;
       --muted: #94a3b8;
       --card: #071025;
-      --accent: #7c3aed; /* purple */
-      --accent-2: #06b6d4; /* teal */
+      --accent: #7c3aed;
+      --accent-2: #06b6d4;
       --glass: rgba(255,255,255,0.03);
       --radius: 12px;
       --maxwidth: 1100px;
@@ -59,7 +59,6 @@
       --accent-2: #06b6d4;
       color-scheme: light;
     }
-    /* Reset-ish */
     * { box-sizing: border-box; }
     html, body {
       height: 100%;
@@ -95,7 +94,6 @@
       color: var(--muted);
       font-size: 0.9rem;
     }
-    /* Theme toggle */
     .theme-toggle {
       position: absolute;
       top: 0;
@@ -117,7 +115,6 @@
       background: rgba(0,0,0,0.03);
       border-color: rgba(0,0,0,0.1);
     }
-    /* Tabs */
     .tabs {
       display: flex;
       gap: 8px;
@@ -201,7 +198,6 @@
       border-color: rgba(0,0,0,0.05);
       color: #475569;
     }
-    /* KNFL styles scoped */
     .knfl .playground {
       display: flex;
       gap: 8px;
@@ -234,7 +230,6 @@
       color: #e2f0ff;
     }
     [data-theme="light"] .knfl .score { color: #1e293b; }
-    /* Accordion */
     .accordion {
       margin-top: 12px;
       border-radius: 8px;
@@ -277,7 +272,6 @@
     }
     [data-theme="light"] .acc-panel { color: #475569; }
     .acc-panel.show { display: block; }
-    /* Canvas */
     #gameCanvas {
       width: 100%;
       height: 60vh;
@@ -292,7 +286,6 @@
       color: var(--muted);
       font-size: 0.9rem;
     }
-    /* Focus styles */
     .tab:focus,
     .acc-btn:focus,
     .knfl .roll:focus {
@@ -323,9 +316,9 @@
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-ai" id="tab-ai" data-target="panel-ai" type="button">AI Engineer</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-ml" id="tab-ml" data-target="panel-ml" type="button">ML Engineer</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-genai" id="tab-genai" data-target="panel-genai" type="button">GenAI Engineer</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-pubs" id="tab-pubs" data-target="panel-pubs" type="button">Publications</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-knfl" id="tab-knfl" data-target="panel-knfl" type="button">KNFL (Game)</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-play" id="tab-play" data-target="panel-play" type="button">Playground</button>
-      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-download" id="tab-download" data-target="panel-download" type="button">Download</button>
     </nav>
 
     <main class="card" id="mainCard">
@@ -353,10 +346,7 @@
 
           <aside style="padding:12px;background:var(--glass);border-radius:10px">
             <h3 class="muted">Quick actions</h3>
-            <p class="muted">Use the tabs to switch CV variants or open the KNFL game and playground. Use Download tab to export documents.</p>
-            <div style="margin-top:12px">
-              <button class="tab" data-target="panel-ai" type="button" onclick="activateTabById('tab-ai')">Open AI CV</button>
-            </div>
+            <p class="muted">Use the tabs above to explore role-specific CVs, publications, or interactive projects.</p>
           </aside>
         </div>
       </section>
@@ -373,9 +363,6 @@
           <li>Document chatbot with RAG (ChromaDB/pgvector), OpenAI streaming APIs, and containerised prompt-guardrails.</li>
           <li>Integrated Whisper for STT/TTS and Neo4j for relationship queries; packaged PoC using Gradio.</li>
         </ul>
-
-        <h3>Selected publications</h3>
-        <div class="accordion" id="pubs-accordion-ai"></div>
       </section>
 
       <!-- ML PANEL -->
@@ -389,9 +376,6 @@
           <li>Implemented CI/CD for model lifecycles (Docker, Jenkins), reducing release time.</li>
           <li>Deployed transfer learning and ensemble models on Raspberry Pi / Jetson for real-time inference.</li>
         </ul>
-
-        <h3>Selected publications</h3>
-        <div class="accordion" id="pubs-accordion-ml"></div>
       </section>
 
       <!-- GENAI PANEL -->
@@ -405,9 +389,13 @@
           <li>RAG with ChromaDB/pgvector and containerised guardrails to protect against injection/jailbreaks.</li>
           <li>Real-time voice interfaces with Whisper STT/TTS.</li>
         </ul>
+      </section>
 
-        <h3>Selected publications</h3>
-        <div class="accordion" id="pubs-accordion-genai"></div>
+      <!-- PUBLICATIONS PANEL -->
+      <section id="panel-pubs" role="tabpanel" aria-labelledby="tab-pubs" hidden tabindex="0">
+        <h2>Publications</h2>
+        <p class="muted">Peer-reviewed research in IoT, SDN, privacy, and secure communications.</p>
+        <div class="accordion" id="pubs-accordion"></div>
       </section>
 
       <!-- KNFL GAME PANEL -->
@@ -432,46 +420,29 @@
         <canvas id="gameCanvas" aria-label="interactive canvas playground"></canvas>
         <div id="instructionPrompt" style="display:none;margin-top:10px;color:var(--muted)">Move your mouse to spawn shapes. Click & hold to change behaviour.</div>
       </section>
-
-      <!-- DOWNLOAD PANEL -->
-      <section id="panel-download" role="tabpanel" aria-labelledby="tab-download" hidden tabindex="0">
-        <h2>Download & Publish</h2>
-        <p class="muted">To publish: push this <code>index.html</code> to a repo named <code>yourusername.github.io</code>. I can also create downloadable PDF/Word versions—tell me which roles to prioritise.</p>
-        <p class="muted">For best PDF results: use <strong>Print → Save as PDF</strong> in your browser (dark/light mode respected).</p>
-      </section>
     </main>
 
-    <footer>
-      <div class="muted">Content derived from your CV. Full publications list included.</div>
-    </footer>
+    <!-- Footer removed: no content -->
   </div>
 
   <script>
   (function(){
-    /* UTILS */
     const $ = sel => document.querySelector(sel);
     const $$ = sel => Array.from(document.querySelectorAll(sel));
 
     /* THEME TOGGLE */
     const themeToggle = $('#themeToggle');
     const root = document.documentElement;
-
-    // Detect system preference
     const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     let currentTheme = localStorage.getItem('theme') || (systemPrefersDark ? 'dark' : 'light');
-    if (currentTheme === 'dark') {
-      root.setAttribute('data-theme', 'dark');
-    } else {
-      root.setAttribute('data-theme', 'light');
-    }
-
+    root.setAttribute('data-theme', currentTheme);
+    themeToggle.textContent = currentTheme === 'light' ? '🌙' : '🌓';
     themeToggle.addEventListener('click', () => {
       currentTheme = currentTheme === 'light' ? 'dark' : 'light';
       root.setAttribute('data-theme', currentTheme);
       localStorage.setItem('theme', currentTheme);
       themeToggle.textContent = currentTheme === 'light' ? '🌙' : '🌓';
     });
-    themeToggle.textContent = currentTheme === 'light' ? '🌙' : '🌓';
 
     /* TABS */
     const tabs = $$('[role="tab"]');
@@ -483,7 +454,7 @@
       panels.forEach(p => p.hidden = true);
       tabBtn.setAttribute('aria-selected','true');
       const targetId = tabBtn.getAttribute('data-target') || tabBtn.getAttribute('aria-controls');
-      const panel = targetId ? document.getElementById(targetId) : null;
+      const panel = document.getElementById(targetId);
       if(panel){
         panel.hidden = false;
         panel.focus();
@@ -517,7 +488,7 @@
     const initial = $('.tab[aria-selected="true"]') || tabs[0];
     activateTabButton(initial);
 
-    /* PUBLICATIONS */
+    /* PUBLICATIONS — ONLY IN PUBLICATIONS TAB */
     const publications = [
       {
         title: "There is Mathematics for That! : A Formal Verification of Privacy and Simulative Analysis of Consumer-Centric Content Delivery in IoT",
@@ -561,12 +532,10 @@
         venue: "Fourth International Conference on Computational Intelligence and Communication Technologies (CCICT), IEEE",
         url: "https://doi.org/10.1109/CCICT53244.2021.00042"
       }
-    ].map(pub => ({ ...pub, url: pub.url.trim() })); // TRIM URLs
+    ].map(pub => ({ ...pub, url: pub.url.trim() }));
 
-    const pubsRendered = new Set();
-
-    function buildPublicationsAccordion(containerId){
-      const wrapper = document.getElementById(containerId);
+    function buildPublicationsAccordion(){
+      const wrapper = $('#pubs-accordion');
       if(!wrapper || wrapper.children.length > 0) return;
 
       publications.forEach((p, idx) => {
@@ -580,13 +549,13 @@
         const btn = document.createElement('button');
         btn.className = 'acc-btn';
         btn.setAttribute('aria-expanded','false');
-        btn.setAttribute('aria-controls', `acc-panel-${containerId}-${idx}`);
+        btn.setAttribute('aria-controls', `acc-panel-${idx}`);
         btn.type = 'button';
         btn.textContent = '+';
 
         const panel = document.createElement('div');
         panel.className = 'acc-panel';
-        panel.id = `acc-panel-${containerId}-${idx}`;
+        panel.id = `acc-panel-${idx}`;
         panel.setAttribute('role','region');
         panel.setAttribute('aria-hidden','true');
 
@@ -621,17 +590,11 @@
       });
     }
 
-    // Render pubs only when tab is activated
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.target;
-        if (target === 'panel-ai') buildPublicationsAccordion('pubs-accordion-ai');
-        if (target === 'panel-ml') buildPublicationsAccordion('pubs-accordion-ml');
-        if (target === 'panel-genai') buildPublicationsAccordion('pubs-accordion-genai');
-      });
-    });
+    // Build pubs only when Publications tab is activated
+    $('#tab-pubs').addEventListener('click', buildPublicationsAccordion);
+    $('#tab-pubs').addEventListener('keydown', (e) => { if(e.key === 'Enter') buildPublicationsAccordion(); });
 
-    /* KNFL GAME */
+    /* KNFL GAME (unchanged logic, fixed) */
     (function initKnfl(){
       const roll = $('#knfl-roll');
       const diceHolder = $('#knfl-dice');
@@ -639,13 +602,7 @@
       if(!roll || !diceHolder || !scoreBox) return;
 
       const DICE_COUNT = 5;
-      const SCORES = {
-        KNFL: 500,
-        BIG_STREET: 40,
-        LIL_STREET: 30,
-        FULLHOUSE: 25
-      };
-
+      const SCORES = { KNFL: 500, BIG_STREET: 40, LIL_STREET: 30, FULLHOUSE: 25 };
       let totalPlays = 0, totalHighWins = 0, totalPoints = 0;
 
       function renderDice(arr){
@@ -661,11 +618,8 @@
       function evaluate(arr){
         const sorted = [...arr].sort((a,b)=>a-b);
         const unique = [...new Set(sorted)];
-
-        // KNFL
         const isKNFL = sorted.every(v => v === sorted[0]);
 
-        // Street
         let maxStreet = 1, current = 1;
         for (let i = 1; i < unique.length; i++) {
           if (unique[i] === unique[i-1] + 1) {
@@ -678,13 +632,11 @@
         const isBig = maxStreet >= 5;
         const isLil = maxStreet >= 4 && !isBig;
 
-        // Fullhouse: 3 of one + 2 of another
         const counts = {};
         sorted.forEach(v => counts[v] = (counts[v] || 0) + 1);
         const freqs = Object.values(counts).sort((a,b)=>b-a);
         const isFullhouse = freqs.length === 2 && freqs[0] === 3 && freqs[1] === 2;
 
-        // Default: highest stack score
         let winText = 'Stack', winPoints = 0;
         if (isKNFL) {
           winText = 'KNFL';
@@ -708,7 +660,6 @@
         totalPoints += winPoints;
         totalPlays++;
         const pct = totalPlays ? Math.ceil(100 * totalHighWins / totalPlays) + '%' : '0%';
-
         return { winText, winPoints, totalPoints, totalPlays, pct };
       }
 
@@ -720,7 +671,7 @@
       });
     })();
 
-    /* PLAYGROUND CANVAS */
+    /* PLAYGROUND */
     let playgroundInitialized = false;
     function initPlayground(){
       if(playgroundInitialized) return;
@@ -744,11 +695,11 @@
       let ctx = fitCanvas();
       window.addEventListener('resize', () => { ctx = fitCanvas(); });
 
-      let shapes = [], mouseDown = false, colourAngle = 0;
+      let shapes = [], colourAngle = 0;
       const rand = (min, max) => min + Math.random() * (max - min);
 
       function createShape(x, y){
-        const s = {
+        shapes.push({
           x, y,
           rad: rand(8, 40),
           vel: { x: rand(-3, 3), y: rand(-2, 6) },
@@ -758,9 +709,8 @@
             b: Math.floor(128 - 100 * Math.sin(colourAngle))
           },
           alpha: 1
-        };
+        });
         colourAngle += 0.08;
-        shapes.push(s);
       }
 
       function draw(){
@@ -781,13 +731,11 @@
 
       canvas.addEventListener('mousemove', (e) => {
         const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        if (Math.random() > 0.6) createShape(x, y);
+        if (Math.random() > 0.6) createShape(e.clientX - rect.left, e.clientY - rect.top);
       });
 
-      canvas.addEventListener('mousedown', () => { mouseDown = true; });
-      window.addEventListener('mouseup', () => { mouseDown = false; });
+      canvas.addEventListener('mousedown', () => {});
+      window.addEventListener('mouseup', () => {});
 
       if (prompt) {
         prompt.style.display = 'block';
