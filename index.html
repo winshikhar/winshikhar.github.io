@@ -3,8 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dr. Shikhar Bhardwaj (Ph.D.) — AI/ML/GenAI DevOps Engineer & Researcher</title>
+  <title>Dr. Shikhar Bhardwaj (Ph.D.) — AI/ML/GenAI, DevOps Engineer & Researcher</title>
   <meta name="description" content="PhD researcher and engineer specializing in on-prem GenAI, RAG, edge ML, IoT/SDN, and secure infrastructure automation." />
+
+  <!-- Favicons -->
+  <link id="favicon" rel="icon" href="favicon-dark.ico" />
+  <link rel="icon" href="favicon-light.ico" media="(prefers-color-scheme: light)" />
+  <link rel="icon" href="favicon-dark.ico" media="(prefers-color-scheme: dark)" />
 
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -207,21 +212,79 @@
       color: #475569;
     }
 
-    .project-card {
+    .project-card, .blog-post {
       background: var(--glass);
       border: 1px solid rgba(255,255,255,0.03);
       border-radius: 10px;
       padding: 16px;
       margin-bottom: 16px;
     }
-    [data-theme="light"] .project-card {
+    [data-theme="light"] .project-card,
+    [data-theme="light"] .blog-post {
       background: #f8fafc;
       border-color: rgba(0,0,0,0.05);
     }
-    .project-title {
+    .project-title, .blog-title {
       font-weight: 700;
       margin-bottom: 6px;
       color: var(--accent);
+    }
+
+    /* Accordion */
+    .accordion {
+      margin-top: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    [data-theme="light"] .accordion {
+      border-color: rgba(0,0,0,0.1);
+    }
+    .acc-item { border-bottom: 1px solid rgba(255,255,255,0.02); }
+    [data-theme="light"] .acc-item { border-bottom-color: rgba(0,0,0,0.05); }
+    .acc-h {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+    }
+    [data-theme="light"] .acc-h {
+      background: linear-gradient(180deg, rgba(0,0,0,0.01), rgba(0,0,0,0.005));
+    }
+    .acc-title { font-weight: 600; font-size: 0.95rem; }
+    .acc-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-weight: 700;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .acc-panel {
+      padding: 12px 14px;
+      background: transparent;
+      color: #cfe8ff;
+      display: none;
+    }
+    [data-theme="light"] .acc-panel { color: #475569; }
+    .acc-panel.show { display: block; }
+
+    .pub-venue {
+      font-size: 0.9rem;
+      margin-top: 4px;
+      color: var(--muted);
+    }
+    [data-theme="light"] .pub-venue {
+      color: #64748b;
+    }
+    .pub-link {
+      display: inline-block;
+      margin-top: 6px;
     }
 
     .knfl .playground {
@@ -256,6 +319,13 @@
       display: block;
     }
 
+    #resumeViewer {
+      width: 100%;
+      height: 70vh;
+      border: none;
+      border-radius: 8px;
+    }
+
     #gameCanvas {
       width: 100%;
       height: 50vh;
@@ -265,7 +335,8 @@
 
     .tab:focus,
     .knfl .roll:focus,
-    .theme-toggle:focus {
+    .theme-toggle:focus,
+    .acc-btn:focus {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
       border-radius: 8px;
@@ -281,7 +352,7 @@
     <header>
       <div>
         <div class="brand">Dr. Shikhar Bhardwaj</div>
-        <div class="tagline">PhD · AI/ML/GenAI & DevOps Engineer</div>
+        <div class="tagline">PhD · AI/ML/GenAI, DevOps Engineer & Researcher</div>
         <div class="inline-contact">
           <span>Noida, India (IST)</span> •
           <a href="mailto:winshikhar@gmail.com" data-gtm-event="outbound_click" data-gtm-label="email">winshikhar@gmail.com</a> •
@@ -300,6 +371,8 @@
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-aiml" data-target="panel-aiml">AI/ML/GenAI</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-devops" data-target="panel-devops">DevOps Engineer</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-projects" data-target="panel-projects">Projects</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-blog" data-target="panel-blog">Blog</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-resume" data-target="panel-resume">Resume</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-pubs" data-target="panel-pubs">Publications</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-knfl" data-target="panel-knfl">KNFL</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-play" data-target="panel-play">Playground</button>
@@ -324,27 +397,37 @@
             <h3>Technical Skills</h3>
             <div class="skills">
               <span class="chip">Python</span>
+              <span class="chip">TensorFlow</span>
               <span class="chip">PyTorch</span>
               <span class="chip">vLLM</span>
+              <span class="chip">Whisper</span>
               <span class="chip">Docker</span>
               <span class="chip">Kubernetes</span>
+              <span class="chip">Neo4j</span>
+              <span class="chip">ChromaDB</span>
+              <span class="chip">pgvector</span>
+              <span class="chip">Gradio</span>
+              <span class="chip">Flask</span>
+              <span class="chip">n8n</span>
+              <span class="chip">MQTT</span>
+              <span class="chip">ONVIF</span>
+              <span class="chip">Modbus</span>
               <span class="chip">Raspberry Pi</span>
               <span class="chip">Jetson</span>
               <span class="chip">Proxmox</span>
-              <span class="chip">Neo4j</span>
-              <span class="chip">ChromaDB</span>
-              <span class="chip">Linux</span>
               <span class="chip">Git</span>
+              <span class="chip">Linux</span>
             </div>
           </div>
           <aside style="padding:16px;background:var(--glass);border-radius:10px">
             <h3>Highlights</h3>
             <p class="muted">
-              • PhD, Computer Science<br/>
+              • PhD (Computer Science), PEC Chandigarh<br/>
               • GATE-2015 Qualified<br/>
-              • On-prem GenAI Specialist<br/>
+              • Teaching & mentoring experience<br/>
+              • 6+ SCIE Journal and conference publications<br/>
               • Edge AI on Jetson/RPi<br/>
-              • Infrastructure Automator
+              • On-prem GenAI specialist
             </p>
           </aside>
         </div>
@@ -363,7 +446,7 @@
         </ul>
       </section>
 
-      <!-- DEVOPS ENGINEER (NEW) -->
+      <!-- DEVOPS ENGINEER -->
       <section id="panel-devops" role="tabpanel" hidden tabindex="0">
         <h2>DevOps & Infrastructure Automation</h2>
         <p class="muted">Reliable, secure, and efficient infrastructure for AI/ML workloads.</p>
@@ -374,7 +457,7 @@
           <li>Bandwidth-optimized surveillance via ONVIF + MQTT</li>
           <li>Git, Linux, Bash automation for reproducible deployments</li>
         </ul>
-        <h3>Tools & Platforms</h3>
+        <h3>Tools</h3>
         <div class="skills">
           <span class="chip">Docker</span>
           <span class="chip">Kubernetes</span>
@@ -390,41 +473,45 @@
       <!-- PROJECTS -->
       <section id="panel-projects" role="tabpanel" hidden tabindex="0">
         <h2>Featured Projects</h2>
-        <p class="muted">Real-world systems solving tangible problems.</p>
-
         <div class="project-card">
           <div class="project-title">On-Prem RAG Chatbot</div>
-          <p>Secure chatbot with ChromaDB, vLLM, and Dockerized guardrails. Prevents prompt injection & data leakage.</p>
+          <p>Secure chatbot with ChromaDB, vLLM, and Dockerized guardrails.</p>
         </div>
-
         <div class="project-card">
           <div class="project-title">Cardamom Segregator</div>
-          <p>ML model + Modbus integration for quality grading. Reduced manual labor by 70–90% in pilot farms.</p>
+          <p>ML model + Modbus integration. Reduced manual labor by 70–90%.</p>
         </div>
-
-        <div class="project-card">
-          <div class="project-title">Jetson Edge AI</div>
-          <p>Seismic classifier (human vs. vehicle) and real-time inference on NVIDIA Jetson with quantized models.</p>
-        </div>
-
         <div class="project-card">
           <div class="project-title">Raspberry Pi DevOps</div>
-          <p>Full Docker support, Python venv, and monitoring via Conky on low-power devices.</p>
-          <a href="https://github.com/winshikhar/RaspberryPi-Docker-Tweaks" target="_blank">GitHub</a>
+          <p>Full Docker support on low-power devices. <a href="https://github.com/winshikhar/RaspberryPi-Docker-Tweaks" target="_blank">GitHub</a></p>
         </div>
+      </section>
+
+      <!-- BLOG -->
+      <section id="panel-blog" role="tabpanel" hidden tabindex="0">
+        <h2>Blog & Insights</h2>
+        <p class="muted">Technical notes, tutorials, and reflections on AI and infrastructure.</p>
+        <div class="blog-post">
+          <div class="blog-title">On-Prem LLMs: Cost vs Control</div>
+          <p>Why I moved from cloud APIs to self-hosted vLLM — and saved 50%.</p>
+          <a href="https://github.com/winshikhar/winshikhar.github.io/discussions" target="_blank">Read more on GitHub Discussions →</a>
+        </div>
+        <p><a href="https://github.com/winshikhar/winshikhar.github.io/discussions" target="_blank" class="muted">View all posts on GitHub Discussions</a></p>
+      </section>
+
+      <!-- RESUME -->
+      <section id="panel-resume" role="tabpanel" hidden tabindex="0">
+        <h2>Resume</h2>
+        <p class="muted">Download or view my full CV.</p>
+        <embed id="resumeViewer" src="resume.pdf" type="application/pdf" />
+        <p style="margin-top:10px"><a href="resume.pdf" download>Download PDF</a></p>
       </section>
 
       <!-- PUBLICATIONS -->
       <section id="panel-pubs" role="tabpanel" hidden tabindex="0">
         <h2>Publications</h2>
-        <p class="muted">Peer-reviewed research in IoT, SDN, and blockchain-enabled traceability.</p>
-        <ul>
-          <li><strong>2025</strong> — Formal verification of privacy in IoT content delivery (Wiley ETT)</li>
-          <li><strong>2023</strong> — Blockchain-based traceability in procurement (Springer)</li>
-          <li><strong>2023</strong> — Secure MQTT for power-efficient IoT (IJSN)</li>
-          <li><strong>2022</strong> — SDN for secure IoT (Springer ICICCT)</li>
-          <li><strong>2021</strong> — Stacking ensemble for web classification (IEEE CCICT)</li>
-        </ul>
+        <p class="muted">Peer-reviewed research in IoT, SDN, privacy, and secure communications.</p>
+        <div class="accordion" id="pubs-accordion"></div>
       </section>
 
       <!-- KNFL -->
@@ -454,22 +541,30 @@
     const $ = s => document.querySelector(s);
     const $$ = s => [...document.querySelectorAll(s)];
 
-    // Theme
+    // Theme + Favicon
     const root = document.documentElement;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     let theme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
     root.setAttribute('data-theme', theme);
-    const icon = $('#themeIcon'), label = $('#themeLabel');
-    const updateThemeUI = () => {
-      if (theme === 'light') { icon.textContent = '☀️'; label.textContent = 'Light'; }
-      else { icon.textContent = '🌙'; label.textContent = 'Dark'; }
+    const favicon = document.getElementById('favicon');
+    const updateTheme = () => {
+      if (theme === 'light') {
+        document.getElementById('themeIcon').textContent = '☀️';
+        document.getElementById('themeLabel').textContent = 'Light';
+        favicon.href = 'favicon-light.ico';
+      } else {
+        document.getElementById('themeIcon').textContent = '🌙';
+        document.getElementById('themeLabel').textContent = 'Dark';
+        favicon.href = 'favicon-dark.ico';
+      }
     };
-    updateThemeUI();
+    updateTheme();
+
     $('#themeToggle').addEventListener('click', () => {
       theme = theme === 'light' ? 'dark' : 'light';
       root.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
-      updateThemeUI();
+      updateTheme();
       window.dataLayer.push({event: 'theme_toggle', theme_mode: theme});
     });
 
@@ -491,7 +586,7 @@
     });
     activateTab($('.tab[aria-selected="true"]'));
 
-    // Outbound & Custom Events
+    // Outbound events
     document.addEventListener('click', e => {
       const el = e.target.closest('[data-gtm-event]');
       if (el) {
@@ -501,32 +596,108 @@
       }
     });
 
+    // Publications (Accordion)
+    function buildPubs(){
+      const el = $('#pubs-accordion');
+      if(!el || el.children.length) return;
+      const pubs = [
+        {
+          title: "There is Mathematics for That! : A Formal Verification of Privacy and Simulative Analysis of Consumer-Centric Content Delivery in IoT",
+          authors: "Shikhar Bhardwaj, Sandeep Harit, Shilpa",
+          year: 2025,
+          venue: "Transactions on Emerging Telecommunications Technologies (SCIE)",
+          url: "https://onlinelibrary.wiley.com/doi/10.1002/ett.70059"
+        },
+        {
+          title: "Towards a software-defined networking model for consumer-centric content delivery network for IoT",
+          authors: "Shikhar Bhardwaj, Sandeep Harit, Anil Yadav",
+          year: 2023,
+          venue: "Transactions on Emerging Telecommunications Technologies (SCIE)",
+          url: "https://onlinelibrary.wiley.com/doi/abs/10.1002/ett.4903"
+        },
+        {
+          title: "Message Queuing Telemetry Transport - Secure Connection: A Power-efficient Secure Communication",
+          authors: "Shikhar Bhardwaj, Sandeep Harit, Shilpa, Darpan Anand",
+          year: 2023,
+          venue: "International Journal of Sensor Networks (IJSN SCIE)",
+          url: "https://doi.org/10.1504/IJSNET.2023.131246"
+        },
+        {
+          title: "SDN-Enabled Secure IoT Architecture Development: A Review",
+          authors: "Bhardwaj S., Harit S.",
+          year: 2022,
+          venue: "Inventive Communication and Computational Technologies (ICICCT). Lecture Notes in Networks and Systems, vol 311. Springer",
+          url: "https://doi.org/10.1007/978-981-16-5529-6_47"
+        },
+        {
+          title: "Traceability of Unwitting Disclosure Using Explainable Correlation in Procurement and Supply Chain",
+          authors: "Gunjal, H.V.; Ingale, V.; Bhardwaj, S.; Belokar, R.M.",
+          year: 2023,
+          venue: "Applications of Emerging Technologies and AI/ML Algorithms. ICDAPS 2022. Asset Analytics. Springer",
+          url: "https://doi.org/10.1007/978-981-99-1019-9_35"
+        },
+        {
+          title: "Stacking Ensemble-based Automatic Web Page Classification",
+          authors: "D. Deeksha, R. Bhatia, S. Bhardwaj, M. Kumar, K. Bhatia and S. S. Gill",
+          year: 2021,
+          venue: "Fourth International Conference on Computational Intelligence and Communication Technologies (CCICT), IEEE",
+          url: "https://doi.org/10.1109/CCICT53244.2021.00042"
+        }
+      ];
+      pubs.forEach((p,i) => {
+        const item = document.createElement('div');
+        item.className = 'acc-item';
+        const h = document.createElement('div'); h.className = 'acc-h';
+        const t = document.createElement('div'); t.className = 'acc-title';
+        t.textContent = `${p.authors} — ${p.title} (${p.year})`;
+        const b = document.createElement('button'); b.className = 'acc-btn'; b.textContent = '+'; b.setAttribute('aria-expanded','false'); b.setAttribute('aria-controls',`p${i}`);
+        const panel = document.createElement('div'); panel.className = 'acc-panel'; panel.id = `p${i}`;
+        const venue = document.createElement('div');
+        venue.className = 'pub-venue';
+        venue.textContent = p.venue;
+        const link = document.createElement('a');
+        link.className = 'pub-link';
+        link.href = p.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'View publication';
+        panel.append(venue, link);
+        b.onclick = () => {
+          const isExpanded = b.getAttribute('aria-expanded') === 'true';
+          b.setAttribute('aria-expanded', !isExpanded);
+          panel.classList.toggle('show', !isExpanded);
+          panel.setAttribute('aria-hidden', isExpanded);
+          b.textContent = isExpanded ? '+' : '–';
+        };
+        h.append(t,b);
+        item.append(h,panel);
+        el.append(item);
+      });
+    }
+    $('#panel-pubs').addEventListener('click', buildPubs);
+
     // KNFL
     const roll = $('#knfl-roll'), dice = $('#knfl-dice'), score = $('#knfl-score');
     if (roll) {
-      const eval = arr => {
-        const s = [...arr].sort(), u = [...new Set(s)];
-        const knfl = s.every(x=>x===s[0]);
-        let ms = 1, cur = 1;
-        for (let i=1; i<u.length; i++) {
-          if (u[i] === u[i-1]+1) { cur++; ms = Math.max(ms,cur); } else cur = 1;
-        }
-        const big = ms >= 5, lil = ms >= 4 && !big;
-        const c = {}; s.forEach(x => c[x] = (c[x]||0)+1);
-        const f = Object.values(c).sort((a,b)=>b-a);
-        const fh = f.length===2 && f[0]===3 && f[1]===2;
-        if (knfl) return {txt:'KNFL', pt:500};
-        if (big) return {txt:'Big street', pt:40};
-        if (lil) return {txt:"Lil' street", pt:30};
-        if (fh) return {txt:'Fullhouse', pt:25};
-        const best = s.reduce((a,b) => c[a] > c[b] ? a : b);
-        return {txt:`Stack (${c[best]}) of ${best}`, pt: best * c[best]};
-      };
       roll.onclick = () => {
         const a = Array(5).fill().map(() => Math.floor(Math.random()*6)+1);
         dice.innerHTML = a.map(n => `<div class="dice" role="img" aria-label="Die ${n}">${n}</div>`).join('');
-        const r = eval(a);
-        score.textContent = `${r.txt} — ${r.pt} pts`;
+        const s = [...a].sort(), u = [...new Set(s)];
+        const knfl = s.every(x=>x===s[0]);
+        let ms=1,cur=1;
+        for(let i=1;i<u.length;i++){if(u[i]===u[i-1]+1){cur++;ms=Math.max(ms,cur);}else cur=1;}
+        const big=ms>=5, lil=ms>=4&&!big;
+        const c={};s.forEach(x=>c[x]=(c[x]||0)+1);
+        const f=Object.values(c).sort((a,b)=>b-a);
+        const fh=f.length===2&&f[0]===3&&f[1]===2;
+        let txt,pt;
+        if(knfl){txt='KNFL';pt=500;}
+        else if(big){txt='Big street';pt=40;}
+        else if(lil){txt="Lil' street";pt=30;}
+        else if(fh){txt='Fullhouse';pt=25;}
+        else{const best=s.reduce((a,b)=>c[a]>c[b]?a:b);pt=best*c[best];txt=`Stack (${c[best]}) of ${best}`;}
+        score.textContent = `${txt} — ${pt} pts`;
+        window.dataLayer.push({event: 'knfl_roll'});
       };
     }
 
@@ -576,7 +747,6 @@
       draw();
     };
     $('#panel-play').addEventListener('click', initPG);
-    if (!$('#panel-play').hidden) initPG();
   </script>
 </body>
 </html>
