@@ -1,0 +1,50 @@
+[
+  {
+    "title": "There is Mathematics for That! : A Formal Verification of Privacy and Simulative Analysis of Consumer-Centric Content Delivery in IoT",
+    "authors": "Shikhar Bhardwaj, Sandeep Harit, Shilpa",
+    "year": 2025,
+    "venue": "Transactions on Emerging Telecommunications Technologies (SCIE)",
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ett.70059",
+    "tags": ["IoT", "Privacy", "Formal Verification", "Content Delivery"]
+  },
+  {
+    "title": "Towards a software-defined networking model for consumer-centric content delivery network for IoT",
+    "authors": "Shikhar Bhardwaj, Sandeep Harit, Anil Yadav",
+    "year": 2023,
+    "venue": "Transactions on Emerging Telecommunications Technologies (SCIE)",
+    "url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/ett.4903",
+    "tags": ["SDN", "IoT", "Content Delivery Network"]
+  },
+  {
+    "title": "Message Queuing Telemetry Transport - Secure Connection: A Power-efficient Secure Communication",
+    "authors": "Shikhar Bhardwaj, Sandeep Harit, Shilpa, Darpan Anand",
+    "year": 2023,
+    "venue": "International Journal of Sensor Networks (IJSN SCIE)",
+    "url": "https://doi.org/10.1504/IJSNET.2023.131246",
+    "tags": ["MQTT", "IoT", "Security", "Power Efficiency"]
+  },
+  {
+    "title": "SDN-Enabled Secure IoT Architecture Development: A Review",
+    "authors": "Bhardwaj S., Harit S.",
+    "year": 2022,
+    "venue": "Inventive Communication and Computational Technologies (ICICCT). Lecture Notes in Networks and Systems, vol 311. Springer",
+    "url": "https://doi.org/10.1007/978-981-16-5529-6_47",
+    "tags": ["SDN", "IoT", "Security", "Architecture"]
+  },
+  {
+    "title": "Traceability of Unwitting Disclosure Using Explainable Correlation in Procurement and Supply Chain",
+    "authors": "Gunjal, H.V.; Ingale, V.; Bhardwaj, S.; Belokar, R.M.",
+    "year": 2023,
+    "venue": "Applications of Emerging Technologies and AI/ML Algorithms. ICDAPS 2022. Asset Analytics. Springer",
+    "url": "https://doi.org/10.1007/978-981-99-1019-9_35",
+    "tags": ["AI/ML", "Supply Chain", "Explainable AI"]
+  },
+  {
+    "title": "Stacking Ensemble-based Automatic Web Page Classification",
+    "authors": "D. Deeksha, R. Bhatia, S. Bhardwaj, M. Kumar, K. Bhatia and S. S. Gill",
+    "year": 2021,
+    "venue": "Fourth International Conference on Computational Intelligence and Communication Technologies (CCICT), IEEE",
+    "url": "https://doi.org/10.1109/CCICT53244.2021.00042",
+    "tags": ["Machine Learning", "Web Classification", "Ensemble Learning"]
+  }
+]

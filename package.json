@@ -1,0 +1,53 @@
+{
+  "name": "portfolio-shikhar-bhardwaj",
+  "version": "1.0.0",
+  "description": "Professional portfolio website for Dr. Shikhar Bhardwaj - AI/ML Engineer & Researcher",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "serve": "npx http-server -p 8000 -c-1",
+    "generate-placeholders": "python3 generate-placeholders.py",
+    "validate-html": "npx html-validate index.html",
+    "validate-css": "npx stylelint style.css print.css",
+    "lighthouse": "npx lighthouse http://localhost:8000 --view",
+    "test-a11y": "npx pa11y http://localhost:8000",
+    "optimize-images": "npx imagemin assets/**/*.{jpg,png} --out-dir=assets/",
+    "check-links": "npx broken-link-checker http://localhost:8000",
+    "build": "echo 'No build step required - static site'",
+    "deploy": "echo 'Push to GitHub - GitHub Pages will auto-deploy'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/winshikhar/winshikhar.github.io.git"
+  },
+  "keywords": [
+    "portfolio",
+    "ai",
+    "ml",
+    "genai",
+    "devops",
+    "researcher",
+    "pwa"
+  ],
+  "author": "Dr. Shikhar Bhardwaj <winshikhar@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/winshikhar/winshikhar.github.io/issues"
+  },
+  "homepage": "https://winshikhar.github.io",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "html-validate": "^8.8.0",
+    "stylelint": "^16.0.2",
+    "lighthouse": "^11.4.0",
+    "pa11y": "^8.0.0",
+    "imagemin": "^8.0.1",
+    "imagemin-cli": "^8.0.0",
+    "broken-link-checker": "^0.7.8"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}

@@ -1,0 +1,364 @@
+/* ============================================
+   PRINT STYLESHEET
+   ============================================ */
+
+@media print {
+  /* Force print color adjustment */
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Page setup */
+  @page {
+    margin: 1.5cm;
+    size: A4;
+  }
+
+  /* Base styles */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  /* Hide non-printable elements */
+  .theme-toggle,
+  .tabs,
+  .cookie-banner,
+  .error-boundary,
+  .skip-link,
+  button:not(.print-show),
+  nav,
+  #knfl-dice,
+  #knfl-roll,
+  .loader,
+  .blog-fallback,
+  iframe,
+  embed,
+  video {
+    display: none !important;
+  }
+
+  /* Show all sections */
+  section[role="tabpanel"] {
+    display: block !important;
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+
+  section[role="tabpanel"]:last-child {
+    page-break-after: auto;
+  }
+
+  /* Container */
+  .container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Header */
+  header {
+    margin-bottom: 20pt;
+    padding-bottom: 10pt;
+    border-bottom: 2pt solid #000;
+  }
+
+  .brand {
+    font-size: 20pt;
+    font-weight: bold;
+    color: black !important;
+  }
+
+  .tagline {
+    font-size: 11pt;
+    color: #333 !important;
+  }
+
+  .inline-contact {
+    font-size: 10pt;
+    color: #555 !important;
+  }
+
+  .inline-contact a {
+    color: #000 !important;
+    text-decoration: none;
+  }
+
+  .inline-contact a::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #666;
+  }
+
+  /* Card */
+  main.card {
+    background: white !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    color: black !important;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  h1 { font-size: 18pt; margin-top: 16pt; }
+  h2 { font-size: 16pt; margin-top: 14pt; }
+  h3 { font-size: 14pt; margin-top: 12pt; }
+  h4 { font-size: 12pt; margin-top: 10pt; }
+
+  p, li {
+    orphans: 3;
+    widows: 3;
+    color: black !important;
+  }
+
+  /* Links */
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #666;
+  }
+
+  a[href^="mailto:"]::after {
+    content: "";
+  }
+
+  /* Lists */
+  ul, ol {
+    page-break-inside: avoid;
+  }
+
+  /* Images */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+    display: block;
+    margin: 10pt auto;
+  }
+
+  .profile-image {
+    width: 150pt !important;
+    height: 150pt !important;
+    border: 1pt solid #ccc;
+  }
+
+  .project-image {
+    height: auto !important;
+    max-height: 200pt;
+  }
+
+  /* Grid layouts */
+  .grid-2 {
+    display: block;
+  }
+
+  .grid-2 > * {
+    margin-bottom: 12pt;
+  }
+
+  /* Cards */
+  .highlights-card,
+  .project-card,
+  .blog-post,
+  .competency-card,
+  .contact-card,
+  .timeline {
+    background: white !important;
+    border: 1pt solid #ccc !important;
+    padding: 10pt !important;
+    margin-bottom: 10pt;
+    page-break-inside: avoid;
+  }
+
+  /* Skills/Chips */
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4pt;
+  }
+
+  .chip {
+    background: #f0f0f0 !important;
+    border: 1pt solid #ccc !important;
+    padding: 3pt 8pt;
+    font-size: 9pt;
+    color: black !important;
+    display: inline-block;
+  }
+
+  /* Publications */
+  details {
+    border: 1pt solid #ccc !important;
+    padding: 8pt;
+    margin-bottom: 8pt;
+    background: white !important;
+    page-break-inside: avoid;
+  }
+
+  summary {
+    font-weight: bold;
+    color: black !important;
+  }
+
+  details[open] summary {
+    margin-bottom: 8pt;
+    padding-bottom: 8pt;
+    border-bottom: 1pt solid #ddd;
+  }
+
+  .pub-title {
+    color: black !important;
+    font-weight: bold;
+  }
+
+  .pub-authors,
+  .pub-venue {
+    color: #555 !important;
+  }
+
+  .pub-link {
+    background: #f0f0f0 !important;
+    color: black !important;
+    padding: 4pt 8pt;
+    display: inline-block;
+    margin-top: 8pt;
+  }
+
+  /* Timeline */
+  .timeline-item {
+    border-left: 2pt solid #000;
+    page-break-inside: avoid;
+  }
+
+  .timeline-year {
+    color: black !important;
+    font-weight: bold;
+  }
+
+  /* Contact info */
+  .contact-grid {
+    display: block;
+  }
+
+  .contact-card {
+    display: block;
+    text-align: left;
+    padding: 8pt;
+    margin-bottom: 8pt;
+    border: 1pt solid #ccc !important;
+    background: white !important;
+  }
+
+  .contact-icon {
+    display: none;
+  }
+
+  /* Hire me section */
+  .hire-me-section {
+    background: #f9f9f9 !important;
+    border: 1pt solid #ccc !important;
+    padding: 12pt;
+    page-break-inside: avoid;
+  }
+
+  /* Remove unnecessary spacing */
+  .muted {
+    color: #666 !important;
+  }
+
+  /* Buttons become text */
+  .btn-primary,
+  .btn-secondary {
+    background: none !important;
+    border: 1pt solid #000 !important;
+    color: black !important;
+    padding: 4pt 8pt;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  /* Project metrics */
+  .project-metrics {
+    border-top: 1pt solid #ddd;
+    padding-top: 8pt;
+    margin-top: 8pt;
+  }
+
+  /* Ensure proper spacing between sections */
+  section[role="tabpanel"] h2:first-child {
+    margin-top: 0;
+  }
+
+  /* About section narrative */
+  .about-content {
+    display: block;
+  }
+
+  .about-narrative p {
+    margin-bottom: 10pt;
+  }
+
+  /* Process steps */
+  .process-steps li::before {
+    background: #000 !important;
+    color: white !important;
+  }
+
+  /* Footer information */
+  @page {
+    @bottom-right {
+      content: "Page " counter(page) " of " counter(pages);
+      font-size: 9pt;
+      color: #666;
+    }
+  }
+
+  /* Add page breaks before major sections */
+  #panel-about,
+  #panel-projects,
+  #panel-pubs,
+  #panel-contact {
+    page-break-before: always;
+  }
+
+  /* Print-specific utilities */
+  .print-only {
+    display: block !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  /* Optimize for black and white printing */
+  @media print and (monochrome) {
+    * {
+      background: white !important;
+      color: black !important;
+    }
+
+    .chip,
+    .pub-link,
+    .btn-primary,
+    .btn-secondary {
+      border: 1pt solid black !important;
+    }
+  }
+}
